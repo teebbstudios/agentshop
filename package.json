@@ -1,0 +1,57 @@
+{
+  "name": "fashop",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "fix-xcode10": "node scripts/fix-xcode10",
+    "theme": "node scripts/custom-rn-theme"
+  },
+  "dependencies": {
+    "@react-native-component/react-native-smart-badge": "git+https://github.com/fightingljm/react-native-smart-badge.git",
+    "antd-mobile-rn": "^2.3.1",
+    "array-tree-filter": "^2.1.0",
+    "dva-core": "^1.4.0",
+    "lottie-react-native": "^2.5.10",
+    "moji-react-native-utils": "^2.0.3",
+    "moment": "^2.22.2",
+    "prop-types": "^15.6.2",
+    "react": "16.6.0-alpha.8af6728",
+    "react-native": "^0.57.5",
+    "react-native-dropdownalert": "^3.7.1",
+    "react-native-image-gallery": "^2.1.5",
+    "react-native-image-picker": "^0.27.1",
+    "react-native-image-progress": "^1.1.1",
+    "react-native-indicators": "^0.13.0",
+    "react-native-keyboard-aware-scroll-view": "^0.7.4",
+    "react-native-mjrefresh": "^0.6.5",
+    "react-native-progress": "^3.5.0",
+    "react-native-root-siblings": "^3.1.6",
+    "react-native-safe-area-view": "^0.11.0",
+    "react-native-scrollable-tab-view": "^0.10.0",
+    "react-native-smartrefreshlayout": "^0.6.3",
+    "react-native-splash-screen": "^3.1.1",
+    "react-native-syan-image-picker": "^0.2.0",
+    "react-native-vector-icons": "^6.1.0",
+    "react-native-video": "^4.0.1",
+    "react-native-wechat": "^1.9.10",
+    "react-native-yunpeng-alipay": "^2.0.0",
+    "react-navigation": "2.0.4",
+    "react-navigation-redux-helpers": "1.1.2",
+    "react-redux": "5.0.7",
+    "redux": "3.7.2",
+    "redux-thunk": "2.3.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.1.6",
+    "babel-jest": "23.6.0",
+    "babel-plugin-import": "^1.11.0",
+    "jest": "23.6.0",
+    "metro-react-native-babel-preset": "0.48.1",
+    "react-test-renderer": "16.6.0-alpha.8af6728"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}

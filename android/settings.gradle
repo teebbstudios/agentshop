@@ -1,0 +1,24 @@
+rootProject.name = 'fashop'
+include ':react-native-yunpeng-alipay'
+project(':react-native-yunpeng-alipay').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-yunpeng-alipay/android')
+include ':lottie-react-native'
+project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/lottie-react-native/src/android')
+include ':react-native-smartrefreshlayout'
+project(':react-native-smartrefreshlayout').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-smartrefreshlayout/android')
+include ':react-native-video'
+// 较新的ExoPlayer库
+// project(':react-native-video').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-video/android-exoplayer')
+// 旧的基于Android MediaPlayer的播放器
+project(':react-native-video').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-video/android')
+include ':react-native-splash-screen'
+project(':react-native-splash-screen').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-splash-screen/android')
+include ':react-native-syan-image-picker'
+project(':react-native-syan-image-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-syan-image-picker/android')
+include ':react-native-image-picker'
+project(':react-native-image-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-picker/android')
+include ':react-native-wechat'
+project(':react-native-wechat').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-wechat/android')
+include ':react-native-vector-icons'
+project(':react-native-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/android')
+
+include ':app'
