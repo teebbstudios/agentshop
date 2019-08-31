@@ -22,6 +22,7 @@ import UserLogin from "../pages/user/login";
 import UserInfo from "../pages/user/info";
 import UserRegister from "../pages/user/register";
 import UserFindPassword from "../pages/user/findPassword";
+import UserChangePassword from "../pages/user/changePassword";
 import UserAddressAdd from "../pages/user/address/add";
 import UserAddressEdit from "../pages/user/address/edit";
 import UserAddressList from "../pages/user/address/list";
@@ -41,17 +42,23 @@ import AddressAdd from "../pages/address/add";
 import AddressEdit from "../pages/address/edit";
 import AddressList from "../pages/address/list";
 
-import EvaluateAdd from "../pages/evaluate/add"
-import EvaluateAdditional from "../pages/evaluate/additional"
-import EvaluateDetail from "../pages/evaluate/detail"
-import EvaluateList from "../pages/evaluate/list"
+import EvaluateAdd from "../pages/evaluate/add";
+import EvaluateAdditional from "../pages/evaluate/additional";
+import EvaluateDetail from "../pages/evaluate/detail";
+import EvaluateList from "../pages/evaluate/list";
 
-import CollectGoods from "../pages/collect/goods"
-
+import CollectGoods from "../pages/collect/goods";
+import CustomDiscount from "../pages/custom/CustomDiscount";
+import BalanceTixian from "../pages/custom/balanceTixian";
+import BalanceChangeRecords from "../pages/custom/balanceChangeRecords";
+import ChargeListPage from "../pages/chongzhi/chargePageList";
+import ChargeItemPage from "../pages/chongzhi/chargeItemPage";
+import ChargeOrderFill from "../pages/chongzhi/chargeOrderFill";
+import BalanceTixianRecords from "../pages/custom/balanceTixianRecords";
 const modalStyleStackNames = [
     'UserLogin',
     'FullScreenVideo',
-]
+];
 
 function getCurrentRouteName(navigationState) {
     if (!navigationState) {
@@ -155,6 +162,12 @@ const AppStack = createStackNavigator(
             screen: UserFindPassword,
             navigationOptions: {
                 title: '找回密码'
+            }
+        },
+        UserChangePassword: {
+            screen: UserChangePassword,
+            navigationOptions: {
+                title: '修改密码'
             }
         },
         UserAddressAdd: {
@@ -275,6 +288,55 @@ const AppStack = createStackNavigator(
             navigationOptions: {
                 title: '商品收藏'
             }
+        },
+        //自定义折扣显示
+        CustomDiscount:{
+            screen: CustomDiscount,
+            navigationOptions: {
+                title: '自定义显示折扣'
+            }
+        },
+        //提现申请
+        BalanceTixian:{
+            screen: BalanceTixian,
+            navigationOptions: {
+                title: '余额提现'
+            }
+        },
+        //提现记录
+        BalanceTixianRecords:{
+            screen: BalanceTixianRecords,
+            navigationOptions: {
+                title: '余额变动记录'
+            }
+        },
+        //余额变更记录
+        BalanceChangeRecords:{
+            screen: BalanceChangeRecords,
+            navigationOptions: {
+                title: '余额变动记录'
+            }
+        },
+        //充值列表
+        ChargePageList:{
+            screen: ChargeListPage,
+            navigationOptions: {
+                title: '充值列表'
+            }
+        },
+        //充值项目页
+        ChargeItemPage:{
+            screen: ChargeItemPage,
+            navigationOptions: {
+                title: '充值'
+            }
+        },
+        //充值下单页
+        ChargeOrderFill:{
+            screen: ChargeOrderFill,
+            navigationOptions: {
+                title: '提交订单'
+            }
         }
     },
     {
@@ -302,7 +364,7 @@ const AppStack = createStackNavigator(
             }
         })
     }
-)
+);
 
 const AdStack = createStackNavigator({ 
     Ad: {
@@ -311,7 +373,7 @@ const AdStack = createStackNavigator({
             header: null
         }
     }
-})
+});
 
 export default createSwitchNavigator(
     {

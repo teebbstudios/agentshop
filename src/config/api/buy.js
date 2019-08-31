@@ -18,4 +18,4 @@ export const BuyApi = {
         url: `${ROOT_URL}buy/pay`,
         method: 'POST'
     },
-}
+};

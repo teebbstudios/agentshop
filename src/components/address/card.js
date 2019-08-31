@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
@@ -34,7 +34,7 @@ export default class AddressCard extends Component {
     }
 
     render() {
-        const { id, name, phone, address } = this.props
+        const {id, name, phone, address, isDefault} = this.props;
         return <View style={styles.addressCard}>
             <TouchableOpacity
                 activeOpacity={0.8}
@@ -47,7 +47,10 @@ export default class AddressCard extends Component {
                         <Text style={styles.name}>{name}</Text>
                         <Text style={styles.phone}>{phone}</Text>
                     </View>
-                    <View style={styles.address}><Text>{address}</Text></View>
+                    <View style={styles.address}>
+                        <Text>{address}</Text>
+                        <Text style={styles.boolDefault}>{isDefault ? "默认地址" : ""}</Text>
+                    </View>
                 </View>
             </TouchableOpacity>
             <TouchableOpacity style={styles.action} onPress={() => {
@@ -90,16 +93,20 @@ const styles = StyleSheet.create({
     },
     phone: {
         fontSize: 14,
-        fontWeight: '800',
+        fontWeight: '400',
         marginRight: 15,
         lineHeight: 14,
 
     },
     address: {
+        flexDirection: 'row',
         fontSize: 14,
         lineHeight: 14,
-
         color: '#999999'
+    },
+    boolDefault: {
+        marginLeft: 10,
+        color: '#dd0000'
     },
     action: {
         flexDirection: 'row',

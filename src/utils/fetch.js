@@ -17,7 +17,7 @@ export default class Fetch {
     }
 
     static async externalLinkFetch(...e) {
-        const res = await fetch(...e)
+        const res = await fetch(...e);
         return res.json()
     }
 

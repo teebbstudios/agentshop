@@ -111,11 +111,14 @@ export class Toast {
     static warn(e) {
         Toast.DropdownAlert("warn", "警告", e);
     }
+    static success(e) {
+        Toast.DropdownAlert("success", "成功", e);
+    }
     static error(e) {
         Toast.DropdownAlert("error", "错误", e);
     }
     static DropdownAlert(type, title, text) {
-        const textString = String(text)
+        const textString = String(text);
         let sibling = new RootSiblings(
             (
                 <DropdownAlert
@@ -123,7 +126,8 @@ export class Toast {
                         ref&&ref.alertWithType(type, title, textString);
                     }}
                     infoColor={ThemeStyle.ThemeColor}
-                    closeInterval = {4000}
+                    successColor={ThemeStyle.ThemeColor4}
+                    closeInterval = {3000}
                 />
             )
         );

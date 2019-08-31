@@ -1,7 +1,7 @@
 // 普通商品列表点进商品详情时，如果为多规格，则默认展示第一个规格，规格中如果有参与拼团的，则切换至该规格时刷新出拼团详情
 // 从拼团商品列表点进商品详情时，如果为多规格，则默认展示拼团规格中的第一个
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
@@ -11,11 +11,11 @@ import {
     Image,
     SafeAreaView,
 } from 'react-native';
-import { connect } from "react-redux";
-import { getGoodsDetail } from "../../actions/category";
-import { stateHoc } from "../../utils";
-import { ThemeStyle, windowWidth, PublicStyles } from '../../utils/style';
-import { Carousel, Toast } from 'antd-mobile-rn'
+import {connect} from "react-redux";
+import {getGoodsDetail} from "../../actions/category";
+import {stateHoc} from "../../utils";
+import {ThemeStyle, windowWidth, PublicStyles} from '../../utils/style';
+import {Carousel, Toast} from 'antd-mobile-rn'
 import {
     Goods,
     Separator,
@@ -27,7 +27,7 @@ import SpecList from '../../components/goods/specList'
 import SpecModal from "../../components/goods/specModal";
 import GoodsCollectModel from "../../models/goodsCollect";
 import Badge from "@react-native-component/react-native-smart-badge";
-import { NetworkImage } from "../../components/theme"
+import {NetworkImage} from "../../components/theme"
 // import WebHtmlView from "../../components/public/webHtmlView";
 
 const goodsCollectModel = new GoodsCollectModel()
@@ -39,23 +39,25 @@ const goodsCollectModel = new GoodsCollectModel()
 // `
 
 @connect(({
-    view: {
-        category: {
-            goodsDetailData,
-            goodsDetailFetchStatus,
-        }
-    },
-    app: {
-        user: {
-            login,
-            userInfo
-        }
-    }
-}) => ({
+              view: {
+                  category: {
+                      goodsDetailData,
+                      goodsDetailFetchStatus,
+                  }
+              },
+              app: {
+                  user: {
+                      login,
+                      userInfo,
+                      userToken,
+                  }
+              }
+          }) => ({
     data: goodsDetailData,
     fetchStatus: goodsDetailFetchStatus ? goodsDetailFetchStatus : {},
     login,
-    userInfo
+    userInfo,
+    userToken,
 }))
 @stateHoc({
     detail: true,
@@ -64,18 +66,20 @@ export default class GoodsDetail extends Component {
     state = {
         specVisible: false,
         if_cart: -1,
-    }
+    };
 
     hocComponentDidMount() {
         const {
             navigation,
-            fetchStatus
-        } = this.props
-        const { id } = navigation.state.params
+            fetchStatus,
+            userToken,
+        } = this.props;
+        const {id} = navigation.state.params;
         this.props.dispatch(
             getGoodsDetail({
                 params: {
-                    id
+                    id,
+                    userToken
                 },
                 fetchStatus: fetchStatus ? fetchStatus[id] : null,
             })
@@ -83,14 +87,15 @@ export default class GoodsDetail extends Component {
     }
 
     hocDetailKey() {
-        return this.props.navigation.state.params.id
+        return this.props.navigation.state.params.id;
     }
 
     render() {
-        const { specVisible, if_cart } = this.state;
-        const { navigation, dispatch, login } = this.props;
-        const { id } = navigation.state.params
-        const data = this.props.data[id]
+        const {specVisible, if_cart} = this.state;
+        const {navigation, dispatch, login, userToken, userInfo} = this.props;
+        const {id} = navigation.state.params;
+        const data = this.props.data[id];
+
         return data ? <View style={PublicStyles.ViewMax}>
             <ScrollView>
                 {
@@ -123,7 +128,15 @@ export default class GoodsDetail extends Component {
                     dispatch={dispatch}
                     title={data.title}
                     login={login}
-                    closeModal={()=>{
+                    userInfo={userInfo}
+                    userToken={userToken}
+                    buyedNum={data.buyedNum}
+                    buyedMoney={data.buyedMoney}
+                    canBuy={data.canBuy}
+                    canBuyNum={data.canBuyNum}
+                    canBuyMoney={data.canBuyMoney}
+                    userLevelInfo={data.userLevelInfo}
+                    closeModal={() => {
                         this.setState({
                             specVisible: false
                         })
@@ -134,14 +147,14 @@ export default class GoodsDetail extends Component {
     }
 
     closeModal = () => {
-        this.setState({ specVisible: false });
-    }
+        this.setState({specVisible: false});
+    };
 
     carousel(data) {
-        const { navigation } = this.props
+        const {navigation} = this.props;
         let newImages = Array.isArray(data) && data.length > 0 ? data.map(item => {
-            return { source: { uri: item } }
-        }) : []
+            return {source: {uri: item}}
+        }) : [];
         return (
             <Carousel
                 autoplay={Array.isArray(data) && data.length > 1}
@@ -181,21 +194,34 @@ export default class GoodsDetail extends Component {
                 <View style={styles.titleTop}>
                     <Text style={[styles.title, PublicStyles.boldTitle]}>{data.title}</Text>
                     <View style={PublicStyles.rowBetweenCenter}>
-                        <Text style={[PublicStyles.boldTitle,styles.price]}>￥{data.price}</Text>
-                        <NetworkImage style={styles.share} source={require('../../images/goodsDetail/share.png')} />
+                        <Text style={[PublicStyles.boldTitle, styles.price]}>￥{data.price}</Text>
+                        {/*<Image style={styles.share} source={require('../../images/goodsDetail/share.png')} />*/}
                     </View>
                 </View>
-                <View style={[styles.titleBot, PublicStyles.rowBetweenCenter]}>
+
+                <View style={[styles.titleTop, PublicStyles.rowBetweenCenter]}>
                     <Text style={PublicStyles.descTwo9}>库存 {data.stock}</Text>
                     <Text style={PublicStyles.descTwo9}>销量 {data.sale_num}</Text>
                     <Text style={PublicStyles.descTwo9}>运费 {data.freight_fee}</Text>
+                </View>
+
+                <View style={[styles.titleTop, {
+                    flexDirection: 'column',
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-start',
+                    paddingBottom: 10
+                }]}>
+                    {data.userLevelInfo.map((item, index) => {
+                        return <Text key={index} style={PublicStyles.descTwo9}>会员等级：{item.name} 立享 {item.discount}折</Text>
+                    })}
+                    <Text style={PublicStyles.descTwo9}>备注：实际价格请以选中的商品属性标价为准。</Text>
                 </View>
             </View>
         )
     }
 
     detail(data) {
-        const { navigation } = this.props
+        const {navigation} = this.props;
         return (
             <View style={styles.body}>
                 <Text style={[styles.detailTitle, PublicStyles.boldTitle]}>商品详情</Text>
@@ -207,15 +233,15 @@ export default class GoodsDetail extends Component {
                     Array.isArray(data.body) && data.body.length > 0 && data.body.map((item, index) => {
                         switch (item.type) {
                             case "goods":
-                                return <Goods key={index} data={item} />;
+                                return <Goods key={index} data={item}/>;
                             case "separator":
-                                return <Separator key={index} data={item} />;
+                                return <Separator key={index} data={item}/>;
                             case "image":
                                 return <BodyImage key={index} url={item.value.url} navigation={navigation}/>;
                             case "video":
                                 return <Video key={index} data={item} navigation={navigation}/>;
                             case "text":
-                                return <BodyText key={index} content={item.value.content} />;
+                                return <BodyText key={index} content={item.value.content}/>;
                             default:
                                 return <Text key={index}>NULL</Text>;
                         }
@@ -226,11 +252,11 @@ export default class GoodsDetail extends Component {
     }
 
     botView() {
-        const { screenProps, navigation, login } = this.props;
-        const { cartNum } = screenProps;
-        const leftText = [PublicStyles.descTwo9, { fontSize: 10, marginTop: 6 }]
+        const {screenProps, navigation, login, userToken} = this.props;
+        const {cartNum} = screenProps;
+        const leftText = [PublicStyles.descTwo9, {fontSize: 10, marginTop: 6}]
         return (
-            <SafeAreaView style={{ backgroundColor: '#fff' }}>
+            <SafeAreaView style={{backgroundColor: '#fff'}}>
                 <View style={styles.bot}>
                     <View style={[PublicStyles.rowCenter, styles.botLeft]}>
                         <TouchableOpacity
@@ -238,7 +264,7 @@ export default class GoodsDetail extends Component {
                             style={styles.botItem}
                             onPress={this.onCollect}
                         >
-                            <Image source={require('../../images/goodsDetail/collect.png')} />
+                            <Image source={require('../../images/goodsDetail/collect.png')}/>
                             <Text style={leftText}>收藏</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -248,12 +274,12 @@ export default class GoodsDetail extends Component {
                                 navigation.navigate(login ? 'Cart' : 'UserLogin')
                             }}
                         >
-                            <Image source={require('../../images/goodsDetail/cart.png')} />
+                            <Image source={require('../../images/goodsDetail/cart.png')}/>
                             <Text style={leftText}>购物车</Text>
                             {
                                 cartNum ? <Badge
-                                    textStyle={{ color: '#fff', fontSize: 10, paddingHorizontal: 2 }}
-                                    style={{ position: 'absolute', right: 4, top: -1 }}
+                                    textStyle={{color: '#fff', fontSize: 10, paddingHorizontal: 2}}
+                                    style={{position: 'absolute', right: 4, top: -1}}
                                 >
                                     {cartNum}
                                 </Badge> : null
@@ -263,7 +289,7 @@ export default class GoodsDetail extends Component {
                     <View style={[styles.botRight]}>
                         <TouchableOpacity
                             activeOpacity={.8}
-                            style={[styles.botItem, { backgroundColor: ThemeStyle.ThemeColor2 }]}
+                            style={[styles.botItem, {backgroundColor: ThemeStyle.ThemeColor2}]}
                             onPress={() => {
                                 this.setState({
                                     specVisible: true,
@@ -271,11 +297,11 @@ export default class GoodsDetail extends Component {
                                 })
                             }}
                         >
-                            <Text style={[PublicStyles.title, { color: '#fff' }]}>加入购物车</Text>
+                            <Text style={[PublicStyles.title, {color: '#fff'}]}>加入购物车</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             activeOpacity={.8}
-                            style={[styles.botItem, { backgroundColor: ThemeStyle.ThemeColor }]}
+                            style={[styles.botItem, {backgroundColor: ThemeStyle.ThemeColor}]}
                             onPress={() => {
                                 this.setState({
                                     specVisible: true,
@@ -283,7 +309,7 @@ export default class GoodsDetail extends Component {
                                 })
                             }}
                         >
-                            <Text style={[PublicStyles.title, { color: '#fff' }]}>立即购买</Text>
+                            <Text style={[PublicStyles.title, {color: '#fff'}]}>立即购买</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -292,16 +318,17 @@ export default class GoodsDetail extends Component {
     }
 
     onCollect = async () => {
-        const { navigation, login } = this.props;
-        const { id } = navigation.state.params;
+        const {navigation, login, userToken} = this.props;
+        const {id} = navigation.state.params;
         if (login) {
             const result = await goodsCollectModel.add({
-                goods_id: id
-            })
+                goods_id: id,
+                userToken,
+            });
             if (result !== false) {
                 Toast.info('成功收藏', 1)
             }
-        }else {
+        } else {
             navigation.navigate('UserLogin')
         }
     }

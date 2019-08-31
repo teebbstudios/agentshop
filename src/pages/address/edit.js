@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
@@ -7,23 +7,29 @@ import {
 } from 'react-native';
 import fa from '../../utils/fa'
 import AddressModel from '../../models/address'
-import { Modal,Button } from 'antd-mobile-rn';
-import { Field } from '../../components'
+import {Modal, Button} from 'antd-mobile-rn';
+import {Field} from '../../components'
 import arrayTreeFilter from "array-tree-filter";
-import { StackActions } from "react-navigation";
-import { connect } from 'react-redux'
-import { PublicStyles } from '../../utils/style';
+import {StackActions} from "react-navigation";
+import {connect} from 'react-redux'
+import {PublicStyles} from '../../utils/style';
 
 const addressModel = new AddressModel()
 
 @connect(({
-    view: {
-        address: {
-            areaList
-        }
-    }
-})=>({
-    areaList
+              view: {
+                  address: {
+                      areaList
+                  }
+              },
+              app: {
+                  user: {
+                      userToken,
+                  }
+              },
+          }) => ({
+    areaList,
+    userToken
 }))
 export default class UserAddressEdit extends Component {
     state = {
@@ -33,15 +39,14 @@ export default class UserAddressEdit extends Component {
         type: '个人',
         area_id: '',
         address: '',
-        is_default: 1,
+        is_default: true,
         combine_detail: null,
-
         checked: true,
-    }
+    };
 
-    async componentWillMount() {
-        const id = this.props.navigation.getParam('id')
-        const info = await addressModel.info({ id })
+    async componentDidMount() {
+        const id = this.props.navigation.getParam('id');
+        const info = await addressModel.info({id});
         this.setState({
             id,
             truename: info.truename,
@@ -54,8 +59,8 @@ export default class UserAddressEdit extends Component {
         })
     }
 
-    onAreaChange({ value }) {
-        const { areaList } = this.props
+    onAreaChange({value}) {
+        const {areaList} = this.props;
         const treeChildren = arrayTreeFilter(
             areaList, (item, level) => item.value === value[level]
         );
@@ -68,25 +73,25 @@ export default class UserAddressEdit extends Component {
         })
     }
 
-    onTruenameChange({ value }) {
+    onTruenameChange({value}) {
         this.setState({
             truename: value
         })
     }
 
-    onMobilePhoneChange({ value }) {
+    onMobilePhoneChange({value}) {
         this.setState({
             mobile_phone: value
         })
     }
 
-    onAddressChange({ value }) {
+    onAddressChange({value}) {
         this.setState({
             address: value
         })
     }
 
-    onIsDefaultChange({ value }) {
+    onIsDefaultChange({value}) {
         this.setState({
             is_default: value ? 1 : 0
         })
@@ -94,13 +99,13 @@ export default class UserAddressEdit extends Component {
 
     async onDelete() {
         Modal.alert('您确认删除吗？一旦删除不可恢复', null, [
-            { text: '取消', onPress: () => console.log('cancel'), style: 'cancel' },
+            {text: '取消', onPress: () => console.log('cancel'), style: 'cancel'},
             {
                 text: '确认', onPress: async () => {
-                    const { id } = this.state
+                    const {id} = this.state;
                     const result = await addressModel.del({
                         id
-                    })
+                    });
                     if (result === false) {
                         fa.toast.show({
                             title: fa.code.parse(addressModel.getException().getCode())
@@ -113,19 +118,20 @@ export default class UserAddressEdit extends Component {
         ]);
     }
 
-    onSubmit = async() => {
-        const { id, truename, mobile_phone, area_id, address, is_default, type } = this.state
+    onSubmit = async () => {
+        const {id, truename, mobile_phone, area_id, address, is_default, type} = this.state;
+        const {userToken} = this.props;
         if (!truename) {
-            return fa.toast.show({ title: '请输入姓名' })
+            return fa.toast.show({title: '请输入姓名'})
         }
         if (!mobile_phone) {
-            return fa.toast.show({ title: '请输入手机号' })
+            return fa.toast.show({title: '请输入手机号'})
         }
         if (!area_id) {
-            return fa.toast.show({ title: '请选择所在地区' })
+            return fa.toast.show({title: '请选择所在地区'})
         }
         if (!address) {
-            return fa.toast.show({ title: '请填写楼栋楼层或房间号信息' })
+            return fa.toast.show({title: '请填写楼栋楼层或房间号信息'})
         }
         let data = {
             id,
@@ -134,16 +140,17 @@ export default class UserAddressEdit extends Component {
             address,
             is_default,
             type,
-            area_id
-        }
+            area_id,
+            userToken
+        };
 
-        const result = await addressModel.edit(data)
+        const result = await addressModel.edit(data);
         if (result === false) {
             fa.toast.show({
                 title: fa.code.parse(addressModel.getException().getCode())
             })
         } else {
-            this.props.navigation.dispatch(StackActions.pop({ n: 1 }));
+            this.props.navigation.dispatch(StackActions.pop({n: 1}));
             const updateListRow = this.props.navigation.getParam('updateListRow')
             if (typeof updateListRow === 'function') {
                 updateListRow(id)
@@ -159,14 +166,14 @@ export default class UserAddressEdit extends Component {
             address,
             is_default,
             combine_detail,
-        } = this.state
-        const { areaList } = this.props
+        } = this.state;
+        const {areaList} = this.props;
         if (!areaList || !id) {
             return null
         }
         return <View style={PublicStyles.ViewMax}>
             <ScrollView>
-                <View style={{ backgroundColor: '#fff' }}>
+                <View style={{backgroundColor: '#fff'}}>
                     <Field
                         title="收货人："
                         placeholder="请输入姓名"
@@ -207,7 +214,7 @@ export default class UserAddressEdit extends Component {
                         title="设置默认地址："
                         desc="注：每次下单时会使用该地址"
                         type={'switch'}
-                        checked={is_default === 1}
+                        checked={is_default}
                         onChange={(e) => {
                             this.onIsDefaultChange(e)
                         }}
@@ -215,19 +222,19 @@ export default class UserAddressEdit extends Component {
                 </View>
             </ScrollView>
             <SafeAreaView style={styles.buttonArea}>
-                <Button 
-                    style={{ borderRadius: 0, flex: 1 }} 
-                    size="large" 
+                <Button
+                    style={{borderRadius: 0, flex: 1}}
+                    size="large"
                     onClick={() => {
                         this.onDelete(id)
                     }}
                 >
                     删除地址
                 </Button>
-                <Button 
-                    style={{ borderRadius: 0, flex: 1 }} 
+                <Button
+                    style={{borderRadius: 0, flex: 1}}
                     type='primary'
-                    size="large" 
+                    size="large"
                     onClick={this.onSubmit}
                 >
                     保存

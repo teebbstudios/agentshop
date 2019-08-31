@@ -34,6 +34,7 @@ export class CartListInfoInterface extends Interface {
     goods_freight_areas;
     create_time;
     is_check;
+    spec_stock;
 
     constructor(param) {
         super()
@@ -56,6 +57,7 @@ export class CartListInfoInterface extends Interface {
             this.goods_stock = param.goods_stock
             this.create_time = param.create_time
             this.is_check = param.is_check
+            this.spec_stock = param.spec_stock
         } catch (e) {
             throw new Exception(e, 'CartListInfoInterface interface attribute error')
         }

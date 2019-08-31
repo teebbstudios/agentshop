@@ -40,7 +40,7 @@ export default class Cart extends Model {
     async edit(params) {
         try {
             await Fetch.request(CartApi.edit, { params })
-            store.dispatch(getCartTotalNum())
+            store.dispatch(getCartTotalNum(params.userToken))
             return true
         } catch (e) {
             this.setException(e)
@@ -60,10 +60,11 @@ export default class Cart extends Model {
 
     async check(params) {
         try {
-            const { result } = await Fetch.request(CartApi.check, { params })
+            const { result } = await Fetch.request(CartApi.check, { params });
+            console.log(result);
             return true
         } catch (e) {
-            this.setException(e)
+            this.setException(e);
             return false
         }
     }
@@ -80,21 +81,21 @@ export default class Cart extends Model {
 
     async del(params) {
         try {
-            await Fetch.request(CartApi.del, { params })
-            store.dispatch(getCartTotalNum())
+            await Fetch.request(CartApi.del, { params });
+            store.dispatch(getCartTotalNum(params.userToken));
             return true
         } catch (e) {
-            this.setException(e)
+            this.setException(e);
             return false
         }
     }
 
     async destroy() {
         try {
-            await Fetch.request(CartApi.destroy)
+            await Fetch.request(CartApi.destroy);
             return true
         } catch (e) {
-            this.setException(e)
+            this.setException(e);
             return false
         }
     }

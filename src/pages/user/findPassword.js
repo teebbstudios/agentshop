@@ -10,7 +10,7 @@ import {
 	KeyboardAvoidingView,
 } from 'react-native';
 import {Toast} from '../../utils/function';
-import {Fetch} from '../../utils';
+import Fetch from "../../utils/fetch";
 import { PublicStyles, ThemeStyle } from '../../utils/style';
 import { CountdownButton } from '../../utils/view';
 import { Button } from 'antd-mobile-rn';
@@ -35,7 +35,9 @@ export default class UserFindPassword extends Component{
 	render(){
 		const { secureTextEntry, phone, verify_code, password } = this.state;
 		return(
-			<KeyboardAvoidingView style={[PublicStyles.ViewMax,{backgroundColor:'#fff'}]} behavior={'padding'}>
+			<KeyboardAvoidingView
+				keyboardShouldPersistTaps={'handled'}
+				style={[PublicStyles.ViewMax,{backgroundColor:'#fff'}]} behavior={'padding'}>
 				<View
 					style={{
 						paddingHorizontal: 30,
@@ -72,7 +74,7 @@ export default class UserFindPassword extends Component{
 									}
 								}}
 								getData={(e) => {
-									if (e.code == 0) {
+									if (e.code === 0) {
 										Toast.info('验证码已发送')
 									} else {
 										Toast.warn(e.msg)
@@ -151,16 +153,17 @@ export default class UserFindPassword extends Component{
 		const e = await Fetch.fetch({
 			api: UserApi.editPasswordByFind,
 			params: {
-				phone : this.state.phone,
-				password : this.state.password,
-				verify_code : this.state.verify_code,
+				phone : phone,
+				password : password,
+				verify_code : verify_code,
 			}
-		})
+		});
+
 		if(e.code===0){
-			Toast.info('找回密码成功，请重新登录')
+			Toast.success(e.msg);
 			navigation.goBack()
 		}else {
-			Toast.error(e.errmsg)
+			Toast.error(e.msg);
 		}
 	}
 }

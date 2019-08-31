@@ -7,15 +7,24 @@ export class UserSelfInterface extends Interface {
     phone;
     profile;
     assets;
+    userLevel;
+    balance;
+    userLevelDiscount;
+    customDiscount;
 
     constructor(param) {
-        super()
+        super();
         try {
-            this.id = param.info.id
-            this.nickname = param.info.nickname
-            this.username = param.info.username
-            this.profile = param.info.profile
-            this.assets = param.info.assets
+            this.id = param.info.id;
+            this.nickname = param.info.nickname;
+            this.username = param.info.username;
+            this.profile = param.info.profile;
+            this.assets = param.info.assets;
+            this.userLevel = param.info.userLevel;
+            this.balance = param.info.balance;
+            this.userLevelDiscount = param.info.userLevelDiscount;
+            this.customDiscount = param.info.customDiscount;
+
         } catch (e) {
             throw new Exception(e, 'UserSelfInterface interface attribute error')
         }
@@ -30,13 +39,13 @@ export class UserAccessTokenInterface extends Interface {
     exp;
 
     constructor(param) {
-        super()
+        super();
         try {
-            this.jti = param.jti
-            this.iss = param.iss
-            this.sub = param.sub
-            this.iat = param.iat
-            this.exp = param.exp
+            this.jti = param.jti;
+            this.iss = param.iss;
+            this.sub = param.sub;
+            this.iat = param.iat;
+            this.exp = param.exp;
         } catch (e) {
             throw new Exception(e, 'UserAccessTokenInterface interface attribute error')
         }
@@ -48,7 +57,7 @@ export class UserTokenInfoInterface extends Interface {
     expires_in;
 
     constructor(param) {
-        super()
+        super();
         try {
             this.access_token = param.access_token
             this.expires_in = param.nickname

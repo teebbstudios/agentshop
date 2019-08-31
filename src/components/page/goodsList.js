@@ -11,11 +11,11 @@ import { NetworkImage } from "../theme"
 
 export default class PageGoodsList extends Component {
     render() {
-        const { data, options } = this.props.data
-        const { goods_display_field, layout_style } = options
-        const showTitle = goods_display_field.indexOf('title') > -1
-        const showPrice = goods_display_field.indexOf('price') > -1
-        const showMarketPrice = goods_display_field.indexOf('market_price') > -1
+        const { data, options } = this.props.data;
+        const { goods_display_field, layout_style } = options;
+        const showTitle = goods_display_field.indexOf('title') > -1;
+        const showPrice = goods_display_field.indexOf('price') > -1;
+        const showMarketPrice = goods_display_field.indexOf('market_price') > -1;
         // 显示内容：商品名称title、商品销售价price、商品原价market_price
         // 展示形式：大图1、小图2、一大两小3、列表4
         return <View style={styles.goodsListWarp}>
@@ -27,8 +27,8 @@ export default class PageGoodsList extends Component {
                         showTitle,
                         showPrice,
                         showMarketPrice
-                    }
-                    return this.list(params)
+                    };
+                    return this.list(params);
                     switch (layout_style) {
                         case 1: return this.small(params);
                         case 2: return this.big(params);

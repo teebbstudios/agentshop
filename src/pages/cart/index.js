@@ -12,6 +12,7 @@ import CartModel from "../../models/cart";
 import CartLogic from "../../logics/cart";
 import store from "../../store";
 import { getCartTotalNum } from "../../actions/user";
+import {BaseComponent} from "../../components/basecomponent";
 
 const cartModel = new CartModel()
 const cartLogic = new CartLogic()
@@ -21,13 +22,15 @@ const cartLogic = new CartLogic()
         app: { 
             user: {
                 login,
+                userToken
             } 
         } 
     }
 )=> ({
     login,
+    userToken
 }))
-export default class CartIndex extends Component {
+export default class CartIndex extends BaseComponent {
     state = {
         refreshing: true,
         cartListLoadedState: false,
@@ -50,16 +53,16 @@ export default class CartIndex extends Component {
         checkedCartIds: [],
         allChecked: false,
         userInfo: null,
-    }
+    };
     componentDidMount() {
         
         this.props.navigation.addListener(
             'didFocus',
             async () => {
-                const { login } = this.props
+                const { login, userToken } = this.props;
                 if(login){
-                    await this.initCartList()
-                    store.dispatch(getCartTotalNum());
+                    await this.initCartList({userToken});
+                    store.dispatch(getCartTotalNum(userToken));
                 }else {
                     this.setState({
                         refreshing: false
@@ -74,8 +77,8 @@ export default class CartIndex extends Component {
     }
 
     renderCartList() {
-        const { cartList } = this.state
-        const { login, navigation } = this.props
+        const { cartList } = this.state;
+        const { login, navigation } = this.props;
         return <View style={PublicStyles.ViewMax}>
             {
                 !login ? <CartLogin navigation={navigation} /> : Array.isArray(cartList) && cartList.length > 0 ? <ScrollView>
@@ -99,7 +102,8 @@ export default class CartIndex extends Component {
                                     price={item.goods_price}
                                     spec={item.goods_spec_string}
                                     cover={item.goods_sku_img}
-                                    checked={item.is_check === 1}
+                                    stock={item.spec_stock}
+                                    checked={item.is_check === true}
                                     number={item.goods_num}
                                     onStepperChange={(value) => {
                                         this.onStepperChange(item, value, index)
@@ -123,8 +127,8 @@ export default class CartIndex extends Component {
     }
 
     render() {
-        const { refreshing, checkedGoodsSkuInfoIds, cartList, totalNum, total } = this.state
-        const { login } = this.props
+        const { refreshing, checkedGoodsSkuInfoIds, cartList, totalNum, total } = this.state;
+        const { login, userToken } = this.props;
         return <View style={PublicStyles.ViewMax}>
             <ScrollView
                 contentContainerStyle={{ flex: 1 }}
@@ -137,7 +141,7 @@ export default class CartIndex extends Component {
                         titleColor={ThemeStyle.ThemeColor}
                         title="加载中..."
                         onRefresh={() => {
-                            this.initCartList()
+                            this.initCartList({userToken})
                         }}
                     />
                 }
@@ -180,30 +184,35 @@ export default class CartIndex extends Component {
     }
 
     async delete(goods_sku_id) {
+        const { userToken } = this.props;
         await cartModel.del({
-            goods_sku_ids: [goods_sku_id]
-        })
-        await this.initCartList()
+            goods_sku_ids: [goods_sku_id],
+            userToken
+        });
+        await this.initCartList({userToken})
     }
 
     async onChecked(item, value, index) {
+        const { userToken } = this.props;
         const result = await cartModel.check({
             goods_sku_ids: [item.goods_sku_id],
-            is_check: item.is_check === 1 ? 0 : 1,
-        })
+            is_check: item.is_check === true ? 0 : 1,
+        });
         if (result !== true) {
             fa.toast.show({
                 title: fa.code.parse(cartModel.getException().getCode())
             })
         }
-        this.initCartList()
+
+        this.initCartList({userToken})
     }
 
     async onStepperChange(item, number, index) {
-        const goods_sku_id = item.goods_sku_id
-        const result = await cartLogic.save(goods_sku_id, number)
+        const { userToken } = this.props;
+        const goods_sku_id = item.goods_sku_id;
+        const result = await cartLogic.save(goods_sku_id, number, userToken);
         if (result !== false) {
-            this.initCartList()
+            this.initCartList({userToken})
         } else {
             this.setState({})
             fa.toast.show({
@@ -213,23 +222,24 @@ export default class CartIndex extends Component {
     }
 
     async onAllChecked() {
-        const { cartList, checkedGoodsSkuInfoIds } = this.state
-        const cartLength = cartList.length
-        const checkedLength = checkedGoodsSkuInfoIds.length
+        const { cartList, checkedGoodsSkuInfoIds } = this.state;
+        const { userToken } = this.props;
+        const cartLength = cartList.length;
+        const checkedLength = checkedGoodsSkuInfoIds.length;
         const goodsSkuIds = cartList.map(function (item) {
             return item.goods_sku_id
-        })
+        });
 
         const result = await cartModel.check({
             goods_sku_ids: goodsSkuIds,
             is_check: cartLength === checkedLength ? 0 : 1,
-        })
+        });
         if (result !== true) {
             fa.toast.show({
                 title: fa.code.parse(cartModel.getException().getCode())
             })
         }
-        this.initCartList()
+        this.initCartList({userToken})
     }
 
     toggleGoodsSkuSelect() {
@@ -246,29 +256,30 @@ export default class CartIndex extends Component {
             specClickGoodsSkuId: e.detail.goodsSkuId,
             goodsSkuId: e.detail.goodsSkuId,
             cartSkuShow: true
-        })
+        });
         await this.initGoodsInfo()
     }
 
     bindToggleSave(e) {
+        const { userToken } = this.props;
         this.setState({
             removeCheckSkuIds: [],
             isSaveMode: !this.state.isSaveMode
-        })
-        this.initCartList()
+        });
+        this.initCartList({userToken})
     }
 
     goOrderFill() {
-        const {checkedCartIds} = this.state
+        const {checkedCartIds} = this.state;
         this.props.navigation.navigate('CartOrderFill', { cart_ids: checkedCartIds })
     }
 
-    async initCartList() {
-        let total = 0
-        let totalNum = 0
-        let checkedGoodsSkuInfoIds = []
-        let checkedCartIds = []
-        const result = await cartModel.list()
+    async initCartList({userToken}) {
+        let total = 0;
+        let totalNum = 0;
+        let checkedGoodsSkuInfoIds = [];
+        let checkedCartIds = [];
+        const result = await cartModel.list({userToken});
         if (result === false) {
             this.setState({
                 cartListLoadedState: false,
@@ -278,25 +289,25 @@ export default class CartIndex extends Component {
                 totalNum: 0,
                 cartList: [],
                 refreshing: false
-            })
+            });
             fa.toast.show({
                 title: fa.code.parse(cartModel.getException().getCode())
             })
         } else {
-            const cartList = result.list
+            const cartList = result.list;
             for (let i = 0; i < cartList.length; i++) {
                 cartList[i]['goods_spec_string'] = cartList[i].goods_spec.map(function (item) {
                     return item.id > 0 ? `${item.name}:${item.value_name}` : ''
-                }).join(',')
-                if (cartList[i].is_check === 1) {
-                    checkedCartIds.push(cartList[i].id)
-                    checkedGoodsSkuInfoIds.push(cartList[i].goods_sku_id)
-                    total += parseFloat(cartList[i].goods_price).toFixed(2) * cartList[i].goods_num
+                }).join(',');
+                if (cartList[i].is_check === true) {
+                    checkedCartIds.push(cartList[i].id);
+                    checkedGoodsSkuInfoIds.push(cartList[i].goods_sku_id);
+                    total += parseFloat(cartList[i].goods_price).toFixed(2) * cartList[i].goods_num;
                     totalNum += cartList[i].goods_num
                 }
                 cartList[i]['remove_checked'] = fa.inArray(cartList[i].goods_sku_id, this.state.removeCheckSkuIds);
             }
-            total = total.toFixed(2)
+            total = total.toFixed(2);
             this.setState({
                 cartListLoadedState: true,
                 checkedCartIds,
@@ -313,14 +324,14 @@ export default class CartIndex extends Component {
     async initGoodsInfo() {
         const result = await goodsModel.info({
             id: this.state.goodsId
-        })
+        });
         if (result) {
-            let goodsInfo = result.info
+            let goodsInfo = result.info;
             for (let i = 0; i < this.state.cartList.length; i++) {
                 if (this.state.cartList[i].goods_sku_id === this.state.goodsSkuId) {
                     this.setState({
                         stepper: this.state.cartList[i].goods_num
-                    })
+                    });
                     break;
                 }
             }
@@ -337,7 +348,7 @@ export default class CartIndex extends Component {
     async onGoodsSkuMatchSuccess(e) {
         this.setState({
             goodsSkuInfo: e.detail.goodsSkuInfo
-        })
+        });
         const cartGoods = await cartModel.info({ goods_sku_id: e.detail.goodsSkuInfo.id })
         if (cartGoods) {
             this.setState({
@@ -357,9 +368,10 @@ export default class CartIndex extends Component {
     }
 
     async changeSkuConfirm() {
-        const stepper = this.state.stepper
-        const goodsSkuInfo = this.state.goodsSkuInfo
-        const specClickGoodsSkuId = this.state.specClickGoodsSkuId
+        const stepper = this.state.stepper;
+        const goodsSkuInfo = this.state.goodsSkuInfo;
+        const specClickGoodsSkuId = this.state.specClickGoodsSkuId;
+        const { userToken } = this.props;
         if (!goodsSkuInfo) {
             return false
         } else {
@@ -368,10 +380,10 @@ export default class CartIndex extends Component {
                     title: '库存不足' // todo 加入到code
                 })
             } else {
-                const cartLogic = new CartLogic()
+                const cartLogic = new CartLogic();
                 const result = await cartLogic.change(specClickGoodsSkuId, goodsSkuInfo.id, stepper)
                 if (result !== false) {
-                    this.initCartList()
+                    this.initCartList({userToken});
                     this.toggleGoodsSkuSelect()
                 } else {
                     fa.toast.show({

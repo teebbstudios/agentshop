@@ -35,8 +35,8 @@ export default class FilterModal extends Component {
         }
     }
     render(){
-        const { modalOpacity, modalHeight } = this.state
-        const { visible, modalColor='#fff' } = this.props
+        const { modalOpacity, modalHeight } = this.state;
+        const { visible, modalColor='#fff' } = this.props;
         if(!visible){
             return null
         }
@@ -80,7 +80,7 @@ export default class FilterModal extends Component {
     hideModal=()=>{
         const {
             hide
-        } = this.props
+        } = this.props;
         Animated.parallel([
             Animated.timing(
                 this.state.modalHeight,

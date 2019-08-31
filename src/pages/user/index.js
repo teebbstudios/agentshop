@@ -1,38 +1,40 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
     Text,
     Image,
+    ScrollView,
     TouchableOpacity
 } from 'react-native';
-import { List } from "antd-mobile-rn";
+import {List} from "antd-mobile-rn";
 // import { updateUserInfo } from '../../actions/user';
-import { PublicStyles, windowWidth } from '../../utils/style';
+import {PublicStyles, windowWidth} from '../../utils/style';
 import Avatar from "../../components/public/avatar";
 import EntypoIcon from "react-native-vector-icons/Entypo";
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 import Badge from "@react-native-component/react-native-smart-badge";
+import {BaseComponent} from "../../components/basecomponent";
 
-const Item = List.Item
+const Item = List.Item;
 
 @connect(
-({
-    app: {
-        user: {
+    ({
+         app: {
+             user: {
+                 login,
+                 userInfo,
+                 orderNum,
+             }
+         }
+     }) => (
+        {
             login,
             userInfo,
             orderNum,
         }
-    }
-}) => (
-    {
-        login,
-        userInfo,
-        orderNum,
-    }
-))
-export default class User extends Component {
+    ))
+export default class User extends BaseComponent {
     render() {
         return <View style={PublicStyles.ViewMax}>
             {
@@ -46,8 +48,9 @@ export default class User extends Component {
             }
         </View>;
     }
+
     top() {
-        const { login, userInfo, navigation } = this.props;
+        const {login, userInfo, navigation} = this.props;
         return (
             <TouchableOpacity
                 style={[PublicStyles.rowBetweenCenter, styles.topWarp]}
@@ -58,17 +61,36 @@ export default class User extends Component {
             >
                 <View style={PublicStyles.rowCenter}>
                     <Avatar
-                        avatar={login&&userInfo&&userInfo.profile ? userInfo.profile.avatar : null}
+                        avatar={login && userInfo && userInfo.profile ? userInfo.profile.avatar : null}
                         size={60}
                         otherStyle={{
                             marginRight: 15,
                         }}
                     />
-                    <Text style={[PublicStyles.boldTitle, { fontSize: 20 }]}>
-                        {
-                            login&&userInfo&&userInfo.profile ? userInfo.profile.nickname : "点击登录"
-                        }
-                    </Text>
+                    <View style={{flexDirection: 'column'}}>
+                        <Text style={[PublicStyles.boldTitle, {fontSize: 18}]}>
+                            {
+                                login && userInfo && userInfo.profile ? userInfo.profile.nickname : "点击登录"
+                            }
+                        </Text>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={[PublicStyles.title, {fontSize: 14}]}>
+                                {
+                                    login && userInfo ? userInfo.userLevel : ""
+                                }
+                            </Text>
+                            <Text style={[PublicStyles.title, {fontSize: 14}]}>
+                                {
+                                    login && userInfo && userInfo.userLevelDiscount !== 1 ? `${userInfo.userLevelDiscount * 10}折专享` : ""
+                                }
+                            </Text>
+                            <Text style={[PublicStyles.title, {fontSize: 14, marginLeft: 10}]}>
+                                {
+                                    login && userInfo ? `余额: ${userInfo.balance}` : ""
+                                }
+                            </Text>
+                        </View>
+                    </View>
                 </View>
                 <View style={PublicStyles.rowCenter}>
                     <Text style={PublicStyles.descFour9}>设置</Text>
@@ -83,7 +105,7 @@ export default class User extends Component {
     }
 
     mid() {
-        const { orderNum, navigation, login } = this.props;
+        const {orderNum, navigation, login} = this.props;
         const orderList = [
             {
                 img: require('../../images/user/state_new.png'),
@@ -91,15 +113,23 @@ export default class User extends Component {
                 num: orderNum.state_new,
                 path: "OrderList",
                 params: {
-                    state_type:'state_new'
+                    state_type: 'state_new'
                 }
             }, {
                 img: require('../../images/user/state_pay.png'),
                 title: '待发货',
+                num: orderNum.state_pay,
+                path: "OrderList",
+                params: {
+                    state_type: 'state_pay'
+                }
+            }, {
+                img: require('../../images/user/state_pay.png'),
+                title: '待收货',
                 num: orderNum.state_send,
                 path: "OrderList",
                 params: {
-                    state_type:'state_pay'
+                    state_type: 'state_send'
                 }
             }, {
                 img: require('../../images/user/state_send.png'),
@@ -107,22 +137,23 @@ export default class User extends Component {
                 num: orderNum.state_success,
                 path: "OrderList",
                 params: {
-                    state_type:'state_success'
+                    state_type: 'state_success'
                 }
-            }, {
-                img: require('../../images/user/state_unevaluate.png'),
-                title: '待评价',
-                num: orderNum.state_unevaluate,
-                path: "EvaluateList"
-            }, {
-                img: require('../../images/user/state_refund.png'),
-                title: '退款售后',
-                num: orderNum.state_refund,
-                path: "RefundList"
             }
-        ]
+            // , {
+            //     img: require('../../images/user/state_unevaluate.png'),
+            //     title: '待评价',
+            //     num: orderNum.state_unevaluate,
+            //     path: "EvaluateList"
+            // }, {
+            //     img: require('../../images/user/state_refund.png'),
+            //     title: '退款售后',
+            //     num: orderNum.state_refund,
+            //     path: "RefundList"
+            // }
+        ];
         return (
-            <View style={{ marginVertical: 10 }}>
+            <View style={{marginVertical: 10}}>
                 <List>
                     <Item
                         extra={(<Text style={PublicStyles.descFour9}>全部订单</Text>)}
@@ -139,25 +170,25 @@ export default class User extends Component {
                                 key={index}
                                 style={styles.midItem}
                                 onPress={() => {
-                                    if(login){
+                                    if (login) {
                                         navigation.navigate(item.path, item.params)
-                                    }else {
+                                    } else {
                                         navigation.navigate('UserLogin')
                                     }
                                 }}
                             >
                                 {
                                     item.num ?
-                                    <Badge
-                                        textStyle={{ color: '#fff', fontSize: 10, paddingHorizontal: 2 }}
-                                        style={{ position: 'absolute', right: 10, top: -10 }}
-                                    >
-                                        {
-                                            item.num
-                                        }
-                                    </Badge> : null
+                                        <Badge
+                                            textStyle={{color: '#fff', fontSize: 10, paddingHorizontal: 2}}
+                                            style={{position: 'absolute', right: 10, top: -10}}
+                                        >
+                                            {
+                                                item.num
+                                            }
+                                        </Badge> : null
                                 }
-                                <Image style={styles.midImg} source={item.img} />
+                                <Image style={styles.midImg} source={item.img}/>
                                 <Text style={PublicStyles.descTwo6}>{item.title}</Text>
                             </TouchableOpacity>
                         ))
@@ -168,8 +199,8 @@ export default class User extends Component {
     }
 
     bot() {
-        const { navigation, login } = this.props;
-        const botList = [
+        const {navigation, login, userInfo} = this.props;
+        let botList = [
             {
                 img: require('../../images/user/address.png'),
                 title: '地址管理',
@@ -178,14 +209,29 @@ export default class User extends Component {
                 img: require('../../images/user/collect.png'),
                 title: '商品收藏',
                 path: "CollectGoods"
-            },{
-                img: require('../../images/user/address.png'),
-                title: '代理级别',
-                path: "CollectGoods"
+            }, {
+                img: require('../../images/user/tixian.png'),
+                title: '余额提现',
+                path: "BalanceTixian"
+            }, {
+                img: require('../../images/user/tixianjilu.png'),
+                title: '提现记录',
+                path: "BalanceTixianRecords"
+            }, {
+                img: require('../../images/user/record.png'),
+                title: '余额变动记录',
+                path: "BalanceChangeRecords"
             }
-        ]
+        ];
+        {
+            userInfo && userInfo.userLevel !== '普通用户' ? botList.push({
+                img: require('../../images/user/discount.png'),
+                title: '自定义显示折扣',
+                path: "CustomDiscount"
+            }) : botList
+        }
         return (
-            <View style={PublicStyles.ViewMax}>
+            <ScrollView style={PublicStyles.ViewMax}>
                 <List style={PublicStyles.ViewMax}>
                     {
                         botList.map((item, index) => (
@@ -195,21 +241,21 @@ export default class User extends Component {
                                 onClick={() => navigation.navigate(login ? item.path : 'UserLogin')}
                             >
                                 <View style={PublicStyles.rowCenter}>
-                                    <Image style={styles.botImg} source={item.img} />
+                                    <Image style={styles.botImg} source={item.img}/>
                                     <Text style={PublicStyles.title}>{item.title}</Text>
                                 </View>
                             </Item>
                         ))
                     }
                 </List>
-                {/* <View style={styles.fashopCopyright}>
-                    <View style={styles.fashopCopyrightBody}>
-                        <Image source={require('../../images/fashop/copyright.png')} mode="aspectFit"
-                               style={styles.fashopCopyrightImg} />
-                        <Text style={styles.fashopCopyrightText}>提供技术支持</Text>
-                    </View>
-                </View> */}
-            </View>
+                {/*<View style={styles.fashopCopyright}>*/}
+                {/*    <View style={styles.fashopCopyrightBody}>*/}
+                {/*        /!*<Image source={require('../../images/fashop/copyright.png')} mode="aspectFit"*!/*/}
+                {/*        /!*       style={styles.fashopCopyrightImg} />*!/*/}
+                {/*        <Text style={styles.fashopCopyrightText}>舍人（上海）网络科技有限公司提供技术支持</Text>*/}
+                {/*    </View>*/}
+                {/*</View>*/}
+            </ScrollView>
         )
     }
 }

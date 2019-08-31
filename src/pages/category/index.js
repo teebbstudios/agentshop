@@ -15,23 +15,36 @@ import { ShopApi } from "../../config/api/shop";
 import GoodsItem from "../../components/goods/item";
 import FlatList from "../../components/flatList";
 import { GoodsApi } from "../../config/api/goods";
+import {connect} from "react-redux";
 
+@connect(
+    ({
+         app: {
+             user: {
+                 userToken
+             }
+         }
+     }) => (
+        {
+            userToken
+        }
+    ))
 export default class Category extends Component {
     state = {
         current: 0,
         categoryList: [],
         goods_category_style: 1,
-    }
+    };
 
     componentDidMount() {
         this.props.navigation.addListener(
             'didFocus', async () => {
                 const shopInfo = await Fetch.fetch({
                     api: ShopApi.info,
-                })
+                });
                 const goodsCategory = await Fetch.fetch({
                     api: GoodsCategoryApi.list,
-                })
+                });
                 if (goodsCategory.code === 0 && shopInfo.code === 0) {
                     this.setState({
                         categoryList: goodsCategory.result.list,
@@ -97,7 +110,7 @@ export default class Category extends Component {
                 }
             </ScrollView>
         </View>;
-    }
+    };
 
     renderRight(_child) {
         const { navigation } = this.props
@@ -171,7 +184,7 @@ export default class Category extends Component {
 
     PageThree = () => {
         const { current, categoryList } = this.state;
-        const { navigation } = this.props
+        const { navigation, userToken } = this.props;
         return <View style={PublicStyles.ViewMax}>
             <View style={styles.btnWarp}>
                 <ScrollView
@@ -229,6 +242,7 @@ export default class Category extends Component {
                 api={GoodsApi.list}
                 fetchParams={{
                     category_ids: current ? [parseInt(current)] : null,
+                    userToken
                 }}
             />
         </View>;

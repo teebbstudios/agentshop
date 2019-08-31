@@ -40,11 +40,11 @@ export const getGoodsDetail = ({ params, fetchStatus: f }) => {
             const e = await Fetch.fetch({
                 api: GoodsApi.info,
                 params
-            })
+            });
             if (e.code === 0) {
                 dispatch(updateGoodsDetail(e.result.info, fetchStatus.s, params.id))
             } else {
-                Toast.warn(e.msg)
+                Toast.warn(e.msg);
                 dispatch(updateGoodsDetail(null, fetchStatus.e, params.id))
             }
         } catch (err) {
@@ -54,10 +54,10 @@ export const getGoodsDetail = ({ params, fetchStatus: f }) => {
 }
 
 const updateGoodsDetail = (data, fetchStatus, id) => {
-    let newData = {}
-    newData[id] = data
-    let FetchStatus = {}
-    FetchStatus[id] = fetchStatus
+    let newData = {};
+    newData[id] = data;
+    let FetchStatus = {};
+    FetchStatus[id] = fetchStatus;
 
     return {
         type: types.category.GET_GOODS_DETAIL_DATA,

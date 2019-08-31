@@ -43,36 +43,36 @@ export class GoodsInfoInterface extends Interface {
     stock;
 
     constructor(param) {
-        super()
+        super();
         try {
-            this.id = param.id
-            this.title = param.title
-            this.images = param.images
-            this.category_ids = param.category_ids
-            this.base_sale_num = param.base_sale_num
-            this.freight_id = param.freight_id
+            this.id = param.id;
+            this.title = param.title;
+            this.images = param.images;
+            this.category_ids = param.category_ids;
+            this.base_sale_num = param.base_sale_num;
+            this.freight_id = param.freight_id;
             // todo body
-            this.body = param.body
-            this.is_on_sale = param.is_on_sale
-            this.stock = param.stock
-            this.image_spec_id = param.image_spec_id
-            this.image_spec_images = param.image_spec_images
+            this.body = param.body;
+            this.is_on_sale = param.is_on_sale;
+            this.stock = param.stock;
+            this.image_spec_id = param.image_spec_id;
+            this.image_spec_images = param.image_spec_images;
             this.sku_list = param.skus.map(function (item) {
                 return new GoodsInfoSkuListInfoInterface(item)
-            })
-            this.create_time = param.create_time
-            this.price = param.price
-            this.update_time = param.update_time
-            this.evaluate_good_star = param.evaluate_good_star
-            this.evaluate_count = param.evaluate_count
-            this.sale_num = param.sale_num
-            this.sale_time = param.sale_time
-            this.delete_time = param.delete_time
-            this.spec_list = param.spec_list
-            this.img = param.img
-            this.pay_type = param.pay_type
-            this.freight_fee = param.freight_fee
-            this.goods_sku_id = param.goods_sku_id
+            });
+            this.create_time = param.create_time;
+            this.price = param.price;
+            this.update_time = param.update_time;
+            this.evaluate_good_star = param.evaluate_good_star;
+            this.evaluate_count = param.evaluate_count;
+            this.sale_num = param.sale_num;
+            this.sale_time = param.sale_time;
+            this.delete_time = param.delete_time;
+            this.spec_list = param.spec_list;
+            this.img = param.img;
+            this.pay_type = param.pay_type;
+            this.freight_fee = param.freight_fee;
+            this.goods_sku_id = param.goods_sku_id;
 
             // for (let i = 0; i < param.sku_list.length; i++) {
             //     if (param.skus[i].id === param.goods_sku_id) {
@@ -103,17 +103,17 @@ export class GoodsInfoSkuListInfoInterface extends Interface {
     spec_sign;
 
     constructor(param) {
-        super()
+        super();
         try {
-            this.id = param.id
-            this.title = param.title
-            this.price = param.price
-            this.stock = param.stock
-            this.spec_sign = param.spec_sign
-            this.spec_value_sign = param.spec_value_sign
-            this.code = param.code
-            this.img = param.img
-            this.weight = param.weight
+            this.id = param.id;
+            this.title = param.title;
+            this.price = param.price;
+            this.stock = param.stock;
+            this.spec_sign = param.spec_sign;
+            this.spec_value_sign = param.spec_value_sign;
+            this.code = param.code;
+            this.img = param.img;
+            this.weight = param.weight;
             this.spec_list = param.spec.map(function (item) {
                 return new GoodsInfoSkuListInfoSpecInfoInterface(item)
             })

@@ -69,22 +69,22 @@ export default class IosFlatList extends Component {
     async fetchData() {
         const {
             fetchParams
-        } = this.state
+        } = this.state;
         const {
             api
-        } = this.props
+        } = this.props;
 
         if (this.state.fetchAllow) {
-            this.state.fetchAllow = false
+            this.state.fetchAllow = false;
             try {
                 const e = await Fetch.fetch({
                     api,
                     params: fetchParams
-                })
+                });
                 if (e.code === 0) {
                     const {
                         getNativeData
-                    } = this.props
+                    } = this.props;
                     this.listViewRender(e.result)
                     getNativeData(e)
                 } else {

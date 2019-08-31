@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
     StyleSheet,
@@ -10,12 +10,13 @@ import {
     Animated,
     StatusBar,
     Keyboard,
+    ScrollView,
     ViewPropTypes,
 } from 'react-native';
-import { Toast } from './function';
-import { windowWidth } from './style';
+import {Toast} from './function';
+import {windowWidth} from './style';
 import Fetch from './fetch';
-import { Button } from 'antd-mobile-rn';
+import {Button} from 'antd-mobile-rn';
 
 
 /**
@@ -77,12 +78,12 @@ export class SwiperTab extends Component {
         if (this.props.dataSource.length) {
             return (
                 <Swiper
-                    style={[{ backgroundColor: '#fff' }, this.props.style]}
+                    style={[{backgroundColor: '#fff'}, this.props.style]}
                     paginationStyle={this.state.paginationStyle}
                     width={this.state.width}
                     showsButtons={false}
                     height={this.state.height}
-                    activeDot={this.state.activeDot ? this.state.activeDot : <View style={styles.activeDot} />}
+                    activeDot={this.state.activeDot ? this.state.activeDot : <View style={styles.activeDot}/>}
                     dot={this.state.dot}
                     loop={false}
                     removeClippedSubViews={false}
@@ -162,16 +163,16 @@ export class ModalComponent extends Component {
                 }}
             >
                 <View
-                    style={[{ flex: 1 }, this.state.horizontal ? { flexDirection: 'row' } : { flexDirection: 'column' }]}>
+                    style={[{flex: 1}, this.state.horizontal ? {flexDirection: 'row'} : {flexDirection: 'column'}]}>
                     <Text
-                        style={[styles.ModalView, { backgroundColor: this.props.modalBackgroundColor }]}
+                        style={[styles.ModalView, {backgroundColor: this.props.modalBackgroundColor}]}
                         onPress={() => {
                             this._hide()
                         }}
                     >
                     </Text>
                     <View
-                        style={[styles.ModalMainView, { width: this.state.width }]}
+                        style={[styles.ModalMainView, {width: this.state.width}]}
                     >
                         {this.props.children}
                     </View>
@@ -256,33 +257,36 @@ export class CountdownButton extends Component {
             getParams,
             style,
             textStyle,
-        } = this.props
+        } = this.props;
         return (
             <Button
                 disabled={!this.state.ready}
                 onClick={async () => {
-                    Keyboard.dismiss()
-                    const params = getParams()
+                    Keyboard.dismiss();
+
+                    const params = getParams();
                     this.setState({
                         ready: false
-                    })
+                    });
+
                     const e = await Fetch.fetch({
                         api,
                         params,
-                    })
-                    console.log(params);
-                    console.log(e);
-                    
+                    });
+                    // console.log(params);
+                    // console.log(e);
+
                     if (e.code === 0) {
-                        this.intervalFunc()
+                        this.intervalFunc();
                     } else {
-                        Toast.warn(e.msg)
+                        Toast.warn(e.msg);
                         this.setState({
                             ready: true
                         })
                     }
-                    this.verification(e)
-                }}
+                    this.verification(e);
+                }
+                }
                 size={'small'}
                 style={[{
                     width: 100,
@@ -384,14 +388,14 @@ export class POPModal extends Component {
                         backgroundColor: '#fff',
                         overflow: 'hidden',
                         transform: [
-                            { scale: this.state.bounceValue },
+                            {scale: this.state.bounceValue},
                         ]
                     }}>
-                        <View style={{ height: 60, alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 14, color: '#333' }}>{this.state.title}</Text>
-                            <Text style={{ fontSize: 12, color: '#333', marginTop: 10 }}>{this.state.text}</Text>
+                        <View style={{height: 60, alignItems: 'center', justifyContent: 'center'}}>
+                            <Text style={{fontSize: 14, color: '#333'}}>{this.state.title}</Text>
+                            <Text style={{fontSize: 12, color: '#333', marginTop: 10}}>{this.state.text}</Text>
                         </View>
-                        <View style={{ height: 40, flexDirection: 'row', borderTopWidth: 1, borderColor: '#e2e2e2' }}>
+                        <View style={{height: 40, flexDirection: 'row', borderTopWidth: 1, borderColor: '#e2e2e2'}}>
                             <TouchableOpacity
                                 style={{
                                     flex: 1,
@@ -408,7 +412,7 @@ export class POPModal extends Component {
                                     }
                                 }
                             >
-                                <Text style={{ fontSize: 12, color: '#333' }}>{this.state.closeButton.text}</Text>
+                                <Text style={{fontSize: 12, color: '#333'}}>{this.state.closeButton.text}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={{
@@ -424,7 +428,7 @@ export class POPModal extends Component {
                                     }
                                 }
                             >
-                                <Text style={{ fontSize: 12, color: '#fff' }}>{this.state.confirmButton.text}</Text>
+                                <Text style={{fontSize: 12, color: '#fff'}}>{this.state.confirmButton.text}</Text>
                             </TouchableOpacity>
                         </View>
                     </Animated.View>
@@ -498,7 +502,7 @@ export class StatusBarComponent extends Component {
 
 /**
  * listview_empty_View
-*/
+ */
 export class ListEmptyView extends Component {
     static propTypes = {
         uri: PropTypes.number,
@@ -508,8 +512,9 @@ export class ListEmptyView extends Component {
         uri: require('../images/fetchStatus/emptyOrder.png'),
         desc: '暂时没有相关信息',
     };
+
     render() {
-        const { uri, desc } = this.props
+        const {uri, desc} = this.props
         return (
             <View style={[
                 styles.emptyView,

@@ -6,9 +6,9 @@ export class GoodsCollectListInterface extends Interface {
     total_number;
 
     constructor(param) {
-        super()
+        super();
         try {
-            this.total_number = param.total_number
+            this.total_number = param.total_number;
             this.list = param.list.map(function (item) {
                 return new GoodsCollectListInfoInterface(item)
             })
@@ -44,35 +44,35 @@ export class GoodsCollectListInfoInterface extends Interface {
     freight_fee;
 
     constructor(param) {
-        super()
+        super();
         try {
-            this.id = param.id
-            this.title = param.title
+            this.id = param.id;
+            this.title = param.title;
             this.images = param.images.map(function (item) {
                 return new GoodsCollectListInfoImagesInterface(item)
-            })
-            this.category_ids = param.category_ids
-            this.base_sale_num = param.base_sale_num
-            this.freight_id = param.freight_id
+            });
+            this.category_ids = param.category_ids;
+            this.base_sale_num = param.base_sale_num;
+            this.freight_id = param.freight_id;
             // todo body
-            this.body = param.body
-            this.is_on_sale = param.is_on_sale
-            this.image_spec_id = param.image_spec_id
-            this.image_spec_images = param.image_spec_images
+            this.body = param.body;
+            this.is_on_sale = param.is_on_sale;
+            this.image_spec_id = param.image_spec_id;
+            this.image_spec_images = param.image_spec_images;
             this.sku_list = param.sku_list.map(function (item) {
                 return new GoodsCollectListInfoSkuListInfoInterface(item)
-            })
-            this.create_time = param.create_time
-            this.price = param.price
-            this.update_time = param.update_time
-            this.evaluate_good_star = param.evaluate_good_star
-            this.evaluate_count = param.evaluate_count
-            this.sale_num = param.sale_num
-            this.sale_time = param.sale_time
-            this.delete_time = param.delete_time
-            this.spec_list = param.spec_list
-            this.img = param.img
-            this.pay_type = param.pay_type
+            });
+            this.create_time = param.create_time;
+            this.price = param.price;
+            this.update_time = param.update_time;
+            this.evaluate_good_star = param.evaluate_good_star;
+            this.evaluate_count = param.evaluate_count;
+            this.sale_num = param.sale_num;
+            this.sale_time = param.sale_time;
+            this.delete_time = param.delete_time;
+            this.spec_list = param.spec_list;
+            this.img = param.img;
+            this.pay_type = param.pay_type;
             this.freight_fee = param.freight_fee
         } catch (e) {
             throw new Exception(e, 'GoodsCollectListInfoInterface interface attribute error')

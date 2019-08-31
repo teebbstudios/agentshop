@@ -1,4 +1,4 @@
-rootProject.name = 'fashop'
+rootProject.name = 'quwanshop'
 include ':react-native-yunpeng-alipay'
 project(':react-native-yunpeng-alipay').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-yunpeng-alipay/android')
 include ':lottie-react-native'

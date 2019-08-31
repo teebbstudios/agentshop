@@ -25,9 +25,9 @@ export const add = ({ params }) => {
             const e = await Fetch.fetch({
                 api: CartApi.add,
                 params
-            })
+            });
             if (e.code === 0) {
-                dispatch(getCartTotalNum())
+                dispatch(getCartTotalNum(params.userToken));
                 return true
             } else {
                 return false
@@ -44,9 +44,15 @@ export const edit = ({params}) => {
             const e = await Fetch.fetch({
                 api: CartApi.edit,
                 params
-            })
-            dispatch(getCartTotalNum())
-            return e.code === 0;
+            });
+            dispatch(getCartTotalNum(params.userToken));
+            if (e.code === 0)
+            {
+                return e.code === 0;
+            }else{
+                Toast.warn(e.msg);
+                return false;
+            }
         } catch (err) {
             Toast.warn(err)
         }
@@ -69,7 +75,7 @@ export const exist = async ({ params = {} }) => {
         const e = await Fetch.fetch({
             api: CartApi.exist,
             params
-        })
+        });
         return e.result.state
     }catch (err) {
         Toast.warn(err)
@@ -80,12 +86,12 @@ export const info = async ({ params = {} }) => {
         const e = await Fetch.fetch({
             api: CartApi.info,
             params
-        })
-        if (e.code === 0) {
+        });
+        if (e.code === 0 || e.code === -2) {
             return e.result
         } else {
+            Toast.info(e.msg);
             return null
-            // Toast.warn(e.msg)
         }
     } catch (err) {
         Toast.warn(err)
@@ -96,37 +102,38 @@ export const check = async ({ params = {} }) => {
         const e = await Fetch.fetch({
             api: CartApi.check,
             params
-        })
+        });
         return e.code === 0;
     } catch (err) {
         Toast.warn(err)
     }
-}
+};
 
 
 export const destroy = async () => {
     try {
         await Fetch.fetch({
             api: CartApi.destroy,
-        })
+        });
         return true
     } catch (err) {
-        Toast.warn(err)
+        Toast.warn(err);
     }
-}
+};
 export const totalNum = async () => {
     try {
         const e = await Fetch.fetch({
             api: CartApi.totalNum,
-        })
+        });
         if (e.code === 0) {
             return result.total_num
         } else {
             return 0
         }
     } catch (err) {
-        Toast.warn(err)
+        Toast.warn(err);
     }
-}
+};
+
 
 

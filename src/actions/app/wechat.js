@@ -136,7 +136,7 @@ export const wechatBind=({tokenData,userData})=>{
 
 export const wechatPay=({params, successCallback}={})=>{
     return async dispatch=>{
-        const { result } = await Fetch.request(BuyApi.pay,{params})
+        const { result } = await Fetch.request(BuyApi.pay,{params});
         const payOptions = {
             partnerId: result.partnerid,    // 商家向财付通申请的商家id
             prepayId: result.prepayid,    // 预支付订单
@@ -146,7 +146,7 @@ export const wechatPay=({params, successCallback}={})=>{
             sign: result.sign,    // 商家根据微信开放平台文档对数据做的签名
         };
         try {
-            const a = await WeChat.pay(payOptions)
+            const a = await WeChat.pay(payOptions);
             Toast.info('支付成功');
             successCallback && successCallback()
         } catch (err) {

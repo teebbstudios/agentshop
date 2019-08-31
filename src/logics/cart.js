@@ -1,32 +1,36 @@
 import CartModel from '../models/cart'
 export default class Cart {
-    cartModel = new CartModel()
+    cartModel = new CartModel();
 
     // 判断是否存在
-    async exist(goods_sku_id) {
+    async exist(goods_sku_id, userToken) {
         return await this.cartModel.exist({
-            goods_sku_id: goods_sku_id
+            goods_sku_id: goods_sku_id,
+            userToken
         })
     }
 
-    async save(goods_sku_id, quantity) {
-        const exist = await this.exist(goods_sku_id)
+    async save(goods_sku_id, quantity, userToken) {
+        const exist = await this.exist(goods_sku_id, userToken);
         if (exist === true) {
             return await this.cartModel.edit({
                 goods_sku_id: goods_sku_id,
                 quantity: quantity,
+                userToken
             })
         } else {
             return await this.cartModel.add({
                 goods_sku_id: goods_sku_id,
                 quantity: quantity,
+                userToken
             })
         }
     }
 
-    async delete(goods_sku_ids) {
+    async delete(goods_sku_ids,userToken) {
         return await this.cartModel.del({
-            goods_sku_ids: goods_sku_ids
+            goods_sku_ids: goods_sku_ids,
+            userToken
         })
     }
 

@@ -26,7 +26,8 @@ export class OrderInfoInfoInterface extends Interface {
     payment_code;
     pay_name;
     payment_time;
-    finnshed_time;
+    finished_time;
+    payable_time;
     goods_amount;
     goods_num;
     amount;
@@ -46,6 +47,7 @@ export class OrderInfoInfoInterface extends Interface {
     payment_name;
     extend_order_extend;
     extend_order_goods;
+    cate_type;
 
     if_pay;
     if_cancel;
@@ -58,7 +60,7 @@ export class OrderInfoInfoInterface extends Interface {
     showLogisticsBtn;
 
     constructor(param) {
-        super()
+        super();
         try {
             this.id = param.id
             this.sn = param.sn
@@ -67,7 +69,8 @@ export class OrderInfoInfoInterface extends Interface {
             this.payment_code = param.payment_code
             this.pay_name = param.pay_name
             this.payment_time = param.payment_time
-            this.finnshed_time = param.finnshed_time
+            this.finished_time = param.finished_time
+            this.payable_time = param.payable_time;
             this.goods_amount = param.goods_amount
             this.goods_num = param.goods_num
             this.amount = param.amount
@@ -89,7 +92,8 @@ export class OrderInfoInfoInterface extends Interface {
             this.extend_order_extend = param.extend_order_extend
             this.extend_order_goods = param.extend_order_goods.map(function (goods) {
                 return new OrderGoodsInterface(goods)
-            })
+            });
+            this.cate_type = param.cate_type;
             this.if_pay = param.if_pay
             this.if_cancel = param.if_cancel
             this.if_complain = param.if_complain

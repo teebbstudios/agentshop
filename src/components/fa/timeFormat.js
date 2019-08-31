@@ -27,29 +27,29 @@ export default class TimeFormat extends Component {
      * format：返回格式，支持自定义，但参数必须与formateArr里保持一致 Y/M/D h:m:s
      */
     format(number, format) {
-        const formateArr = ['Y', 'M', 'D', 'h', 'm', 's']
-        let returnArr = []
-        console.log(number)
-        let date = new Date(number * 1000)
-        returnArr.push(date.getFullYear())
-        returnArr.push(this.formatNumber(date.getMonth() + 1))
-        returnArr.push(this.formatNumber(date.getDate()))
+        const formateArr = ['Y', 'M', 'D', 'h', 'm', 's'];
+        let returnArr = [];
+        // console.log(number)
+        let date = new Date(number * 1000);
+        returnArr.push(date.getFullYear());
+        returnArr.push(this.formatNumber(date.getMonth() + 1));
+        returnArr.push(this.formatNumber(date.getDate()));
 
-        returnArr.push(this.formatNumber(date.getHours()))
-        returnArr.push(this.formatNumber(date.getMinutes()))
-        returnArr.push(this.formatNumber(date.getSeconds()))
+        returnArr.push(this.formatNumber(date.getHours()));
+        returnArr.push(this.formatNumber(date.getMinutes()));
+        returnArr.push(this.formatNumber(date.getSeconds()));
         for (let i in returnArr) {
             format = format.replace(formateArr[i], returnArr[i])
         }
-        return format
+        return format;
     }
 
     render() {
-        const { value, format, style } = this.props
-        const time = this.format(value, format)
+        const { value, format, style } = this.props;
+        const time = this.format(value, format);
         return <Text style={[styles.time, style]}>{time}</Text>
     }
 }
 const styles = StyleSheet.create({
     time: {}
-})
+});

@@ -121,16 +121,6 @@ export default {
             }
         )
     },
-    async unbindWechat(params = {}) {
-        return await fa.request(
-            {
-                url: `user/unbindWechat`,
-                method: 'POST'
-            }, {
-                params
-            }
-        )
-    },
     async evaluatedList(params = {}) {
         return await fa.request(
             {

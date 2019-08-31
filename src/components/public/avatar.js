@@ -24,7 +24,7 @@ export default class PublicAvatar extends Component{
             overflow: 'hidden'
         },
         otherStyle : {},
-    }
+    };
     render() {
         const {
             avatar,

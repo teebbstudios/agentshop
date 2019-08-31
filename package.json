@@ -1,5 +1,5 @@
 {
-  "name": "fashop",
+  "name": "quwanshop",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -31,7 +31,7 @@
     "react-native-safe-area-view": "^0.11.0",
     "react-native-scrollable-tab-view": "^0.10.0",
     "react-native-smartrefreshlayout": "^0.6.3",
-    "react-native-splash-screen": "^3.1.1",
+    "react-native-splash-screen": "^3.2.0",
     "react-native-syan-image-picker": "^0.2.0",
     "react-native-vector-icons": "^6.1.0",
     "react-native-video": "^4.0.1",

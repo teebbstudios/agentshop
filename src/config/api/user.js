@@ -57,5 +57,21 @@ export const UserApi = {
     evaluatedList: {
         url: `${ROOT_URL}server/user/evaluatedList`,
         method: 'GET'
+    },
+    editCustomDiscount: {
+        url: `${ROOT_URL}server/user/editCustomDiscount`,
+        method: 'POST'
+    },
+    userTixianShenqing: {
+        url: `${ROOT_URL}server/user/tixian/shenqing`,
+        method: 'POST'
+    },
+    userTixianList: {
+        url: `${ROOT_URL}server/user/tixian/list`,
+        method: 'POST'
+    },
+    balanceChangeRecords: {
+        url: `${ROOT_URL}server/user/balance/records`,
+        method: 'POST'
     }
-}
+};

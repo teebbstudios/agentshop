@@ -53,7 +53,7 @@ export default class IosFlatList extends Component {
             dataSource: [],
             fetchParams: this.props.fetchParams ? Object.assign(this.props.fetchParams, {
                 page: 1,
-                rows: 20
+                rows: 20,
             }) : { page: 1, rows: 20 },
             fetchAllow: true,
             isRefreshing: false,
@@ -70,23 +70,23 @@ export default class IosFlatList extends Component {
     async fetchData() {
         const {
             fetchParams
-        } = this.state
+        } = this.state;
         const {
             api
-        } = this.props
+        } = this.props;
 
         if (this.state.fetchAllow) {
-            this.state.fetchAllow = false
+            this.state.fetchAllow = false;
             try {
                 const e = await Fetch.fetch({
                     api,
                     params: fetchParams
-                })
+                });
                 if (e.code === 0) {
                     const {
                         getNativeData
-                    } = this.props
-                    this.listViewRender(e.result)
+                    } = this.props;
+                    this.listViewRender(e.result);
                     getNativeData(e)
                 } else {
                     Toast.warn(e.errmsg)
@@ -100,14 +100,14 @@ export default class IosFlatList extends Component {
     }
 
     listViewRender(e) {
-        const { changeDataStructurese } = this.props
-        const { page, rows } = this.state.fetchParams
+        const { changeDataStructurese } = this.props;
+        const { page, rows } = this.state.fetchParams;
         ++this.state.fetchParams.page;
-        let totalNumber = 0
+        let totalNumber = 0;
         if (typeof e['total_number'] !== "undefined") {
             totalNumber = e.total_number
         }
-        const totalPages = Math.ceil(totalNumber - rows)
+        const totalPages = Math.ceil(totalNumber - rows);
         this.state.fetchAllow = totalPages > page;
         if (page === 1) {
             const dataSource = changeDataStructurese ? changeDataStructurese(e.list, []) : e.list;
@@ -144,7 +144,7 @@ export default class IosFlatList extends Component {
     render() {
         const {
             dataSource
-        } = this.state
+        } = this.state;
         const {
             keyboardDismissMode,
             renderItem,
@@ -157,7 +157,7 @@ export default class IosFlatList extends Component {
             onRefresh,
             numColumns,
             lottieSource,
-        } = this.props
+        } = this.props;
         return (
             <FlatList
                 keyboardDismissMode={this.props.keyboardDismissMode}
@@ -198,7 +198,7 @@ export default class IosFlatList extends Component {
     }
 
     setFetchParams(e) {
-        this.ListView.scrollToOffset({ x: 0, y: 0, animated: false })
+        this.ListView.scrollToOffset({ x: 0, y: 0, animated: false });
         this.setState({
             isRefreshing: true,
             fetchAllow: true,

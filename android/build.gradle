@@ -5,7 +5,7 @@ buildscript {
         buildToolsVersion = "27.0.3"
         minSdkVersion = 16
         compileSdkVersion = 27
-        targetSdkVersion = 26
+        targetSdkVersion = 27
         supportLibVersion = "27.1.1"
     }
     repositories {
@@ -23,6 +23,19 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
+
+// 解决方案开始
+subprojects {
+    afterEvaluate {project ->
+        if (project.hasProperty("android")) {
+            android {
+                compileSdkVersion rootProject.ext.compileSdkVersion     //do this in android/app/build.gradle too
+                buildToolsVersion rootProject.ext.buildToolsVersion     //do this in android/app/build.gradle too
+            }
+        }
+    }
+}
+// 解决方案结束
 
 allprojects {
     repositories {

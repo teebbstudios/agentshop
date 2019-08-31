@@ -39,26 +39,26 @@ export default class CartItem extends Component {
         if (this.props.onCheckboxClick) {
             this.props.onCheckboxClick(checked);
         }
-    }
+    };
     onStepperChange = (value) => {
         if (this.props.onStepperChange) {
             this.props.onStepperChange(value);
         }
-    }
+    };
     onImageClick = () => {
         if (this.props.onImageClick) {
             this.props.onImageClick();
         }
-    }
+    };
     onTitleClick = () => {
         if (this.props.onTitleClick) {
             this.props.onTitleClick();
         }
-    }
+    };
 
     render() {
         const checked = this.state.checked;
-        const { title, price, spec, number, cover } = this.props
+        const { title, price, spec, number, cover, stock } = this.props;
         return <View style={styles.cartCardItem}>
             <CartCheckbox onClick={this.onCheckboxClick} checked={checked} style={styles.cartCardCheck} />
             <View style={styles.cartCard}>
@@ -70,20 +70,22 @@ export default class CartItem extends Component {
                         <Text style={styles.cartCardTitle} numberOfLines={2}>{title}</Text>
                     </TouchableOpacity>
                     <Text style={styles.cartCardSpec}>{spec}</Text>
+                    <Text style={styles.cartCardSpec}>库存：{stock}</Text>
                     <View style={styles.cartCardFooter}>
                         <Text style={styles.cartCardPrice}>¥ {price}</Text>
-                        <View style={styles.cartCardStepper}>
-                            <Stepper
-                                size="small"
-                                key="1"
-                                max={99}
-                                min={1}
-                                readOnly={false}
-                                defaultValue={1}
-                                value={number}
-                                onChange={this.onStepperChange}
-                            />
-                        </View>
+                        <Text style={styles.cartCardPrice}>购买数量 {number}</Text>
+                        {/*<View style={styles.cartCardStepper}>*/}
+                        {/*    <Stepper*/}
+                        {/*        size="small"*/}
+                        {/*        key="1"*/}
+                        {/*        max={99}*/}
+                        {/*        min={1}*/}
+                        {/*        readOnly={false}*/}
+                        {/*        defaultValue={1}*/}
+                        {/*        value={number}*/}
+                        {/*        onChange={this.onStepperChange}*/}
+                        {/*    />*/}
+                        {/*</View>*/}
                     </View>
                 </View>
             </View>

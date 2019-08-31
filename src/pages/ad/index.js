@@ -10,7 +10,7 @@ import SafeAreaView from "react-native-safe-area-view";
 
 export default class Ad extends Component {
     state = {
-        wait: 6,
+        wait: 2,
     }
     componentDidMount() {
         this.timer = window.setInterval(() => {

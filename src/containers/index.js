@@ -20,13 +20,13 @@ class App extends Component {
         BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
         const {
             dispatch
-        } = this.props
-        dispatch(initUserInfoStorage())
-        dispatch(initWechat())
-        dispatch(getHomeView())
+        } = this.props;
+        dispatch(initUserInfoStorage());
+        dispatch(initWechat());
+        dispatch(getHomeView());
         dispatch(getAreaList({
             params: {level: 2, tree: 1}
-        }))
+        }));
         SplashScreen.hide();
     }
 
@@ -48,7 +48,7 @@ class App extends Component {
                     {text: '确认', onPress: () => BackHandler.exitApp()},
                 ],
                 {cancelable: false}
-            )
+            );
             return true;
         }
     }
@@ -78,7 +78,7 @@ class App extends Component {
 
 const mapStateToProps = store => {
     const {
-        user: {login, cartNum},
+        user: {login, cartNum, userToken},
         initial: {showBootPage},
     } = store.app;
     const {
@@ -88,6 +88,7 @@ const mapStateToProps = store => {
     return {
         login,
         cartNum,
+        userToken,
         showBootPage,
         areaList,
         homeView,

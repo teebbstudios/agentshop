@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
@@ -16,22 +16,24 @@ export default class OrderBaseInfo extends Component {
         createTime: PropTypes.number,
         payTime: PropTypes.number,
         payment: PropTypes.string,
+        message: PropTypes.string,
     };
     static defaultProps = {
         orderNumber: null,
         createTime: null,
         payTime: null,
         payment: null,
+        message: null,
     };
 
     setClipboardData() {
-        const { orderNumber } = this.props
+        const {orderNumber} = this.props
         Clipboard.setString(`${orderNumber}`);
-        fa.toast.show({ title: '已复制', type: 'info' })
+        fa.toast.show({title: '已复制', type: 'info'})
     }
 
     render() {
-        const { orderNumber, createTime, payTime, payment } = this.props
+        const {orderNumber, createTime, payTime, payment, message} = this.props;
         return <View style={styles.orderBaseInfo}>
             <View style={styles.item}>
                 <View style={styles.row}>
@@ -39,11 +41,15 @@ export default class OrderBaseInfo extends Component {
                     <Text style={styles.text}>{orderNumber}</Text>
                     <OrderButton text="复制" size="small" onClick={() => {
                         this.setClipboardData()
-                    }} />
+                    }}/>
                 </View>
                 <View style={styles.row}>
                     <Text style={styles.label}>下单时间：</Text>
-                    <TimeFormat style={styles.time} value={createTime} />
+                    <TimeFormat style={styles.time} value={createTime}/>
+                </View>
+                <View style={styles.row}>
+                    <Text style={styles.label}>用户留言：</Text>
+                    <Text style={styles.text}>{message}</Text>
                 </View>
             </View>
             {payTime > 0 ? <View style={styles.item}>
@@ -53,7 +59,7 @@ export default class OrderBaseInfo extends Component {
                 </View>
                 <View style={styles.row}>
                     <Text style={styles.label}>支付时间：</Text>
-                    <TimeFormat style={styles.time} value={payTime} />
+                    <TimeFormat style={styles.time} value={payTime}/>
                 </View>
             </View> : null}
         </View>

@@ -190,12 +190,13 @@ const updateAddressTypeList = (data, fetchStatus) => {
 }
 
 export const getAreaList = ({params}) => {
+    const { parames } = params;
     return async dispatch => {
         try {
             const e = await Fetch.fetch({
                 api: AreaApi.list,
                 params
-            })
+            });
             if (e.code === 0) {
                 dispatch(updateAreaList(fa.getAntAreaList(e.result.list), fetchStatus.s));
             } else {

@@ -12,7 +12,17 @@ import FlatList from "../../components/flatList";
 import { AddressApi } from "../../config/api/address";
 import { PublicStyles } from '../../utils/style';
 import { AddressCard } from "../../components";
+import {connect} from "react-redux";
 
+@connect(({
+              app: {
+                  user: {
+                      userToken,
+                  }
+              },
+          })=>({
+    userToken,
+}))
 export default class AddressList extends Component {
     onAddressChecked(id) {
         const onAddressChange = this.props.navigation.getParam('onAddressChange')
@@ -33,18 +43,21 @@ export default class AddressList extends Component {
     // todo id
     updateListRow = (id) => {
         this.FlatList.manuallyRefresh()
-    }
+    };
 
     render() {
+        const {userToken} = this.props;
         return <View style={[PublicStyles.ViewMax]}>
             <FlatList
                 ref={e => this.FlatList = e}
                 api={AddressApi.list}
+                fetchParams={{userToken}}
                 keyExtractor={e => String(e.id)}
                 renderItem={({ item }) => <AddressCard
                     name={item.truename}
                     phone={item.phone}
                     id={item.id}
+                    isDefault={item.is_default}
                     address={item.combine_detail}
                     onEdit={(id) => {
                         this.onEdit(id)

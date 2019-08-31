@@ -20,7 +20,7 @@ export default class OrderCardHeader extends Component {
         const {
             state,
             sn
-        } = this.props
+        } = this.props;
         return <View style={styles.orderCardHeader}>
             <View style={styles.left}>
                 <Text style={styles.leftText}>单号：{sn}</Text>
@@ -84,4 +84,4 @@ const styles = StyleSheet.create({
     state40: {
         color: "red"
     }
-})
+});

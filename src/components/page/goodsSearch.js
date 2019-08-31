@@ -10,8 +10,8 @@ import {
 export default class PageGoodsSearch extends Component {
     render() {
         const { goGoodsList } = this.props;
-        const { options } = this.props.data
-        const { background_color } = options
+        const { options } = this.props.data;
+        const { background_color } = options;
         return <TouchableOpacity 
             style={[styles.warp,{backgroundColor: background_color}]}
             activeOpacity={.8}

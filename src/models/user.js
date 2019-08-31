@@ -59,7 +59,7 @@ export default class User extends Model {
 
     async token() {
         try {
-            const { result } = await Fetch.request(UserApi.token)
+            const { result } = await Fetch.request(UserApi.token);
             return new UserTokenInfoInterface(result)
         } catch (e) {
             this.setException(e)

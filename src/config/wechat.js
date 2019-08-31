@@ -1,5 +1,5 @@
-const AppID = "wx1a76ca32a2015cda";
-const AppSecret = "047eae21f5bc3f7972bacb9b4a5ceaf5";
+const AppID = "wx90e5fe341045bbe3";
+const AppSecret = "81f5240f5bcf3ac04acbdf8cefbc1450";
 export {
     AppID,
     AppSecret,

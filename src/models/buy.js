@@ -10,7 +10,7 @@ export default class Buy extends Model {
             const { result } = await Fetch.request(BuyApi.calculate,{  params })
             return new BuyCalculateInterface(result)
         } catch (e) {
-            this.setException(e)
+            this.setException(e);
             return false
         }
     }
@@ -19,7 +19,7 @@ export default class Buy extends Model {
             const { result } = await Fetch.request(BuyApi.create,{  params })
             return new BuyCreateOrderInterface(result)
         } catch (e) {
-            this.setException(e)
+            this.setException(e);
             return false
         }
     }
@@ -29,7 +29,7 @@ export default class Buy extends Model {
             // return new BuyPayResultInterface(result)
             return result
         } catch (e) {
-            this.setException(e)
+            this.setException(e);
             return false
         }
     }

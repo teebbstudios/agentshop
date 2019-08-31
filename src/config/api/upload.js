@@ -6,4 +6,4 @@ export const UploadApi = {
         url: `${ROOT_URL}upload/addImage`,
         method: 'POST'
     }
-}
+};

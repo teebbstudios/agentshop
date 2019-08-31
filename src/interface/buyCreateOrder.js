@@ -4,13 +4,16 @@ import Exception from "../utils/exception";
 export class BuyCreateOrderInterface extends Interface {
     order_id;
     pay_sn;
-
+    payable_time;
+    total_amount;
     constructor(param) {
-        console.log(param)
-        super()
+        console.log(param);
+        super();
         try {
-            this.order_id = param.order_id
-            this.pay_sn = param.pay_sn
+            this.order_id = param.order_id;
+            this.pay_sn = param.pay_sn;
+            this.payable_time = param.payable_time;
+            this.total_amount = param.total_amount;
         } catch (e) {
             throw new Exception(e , 'BuyCreateOrderInterface interface attribute error')
         }

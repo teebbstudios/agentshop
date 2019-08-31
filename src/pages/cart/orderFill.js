@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
-import { PublicStyles, windowWidth } from '../../utils/style';
-import { Button, List, TextareaItem } from 'antd-mobile-rn';
+import React, {Component} from 'react';
+import {StyleSheet, Text, View, Image, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
+import {PublicStyles, windowWidth} from '../../utils/style';
+import {Button, List, TextareaItem} from 'antd-mobile-rn';
 import fa from "../../utils/fa";
 import CartModel from "../../models/cart";
 import BuyModel from "../../models/buy";
 import AddressModel from "../../models/address";
-import { connect } from "react-redux";
-import { Toast } from '../../utils/function';
-import { NetworkImage } from "../../components/theme"
+import {connect} from "react-redux";
+import {Toast} from '../../utils/function';
+import {NetworkImage} from "../../components/theme"
+import {BaseComponent} from "../../components/basecomponent"
+import {getOrderStateNum} from "../../actions/user";
 
 const cartModel = new CartModel()
 const buyModel = new BuyModel()
@@ -22,14 +24,16 @@ const Item = List.Item;
              user: {
                  login,
                  userInfo,
+                 userToken,
              }
          }
      }) => ({
         login,
         userInfo,
+        userToken,
     }),
 )
-export default class CartOrderFill extends Component {
+export default class CartOrderFill extends BaseComponent {
     state = {
         delta: 1,
         way: 'cart', // way	否	购买途径，cart 购物车（默认）、buy_now 立即购买
@@ -41,6 +45,35 @@ export default class CartOrderFill extends Component {
         message: null,
         payState: false,
         total: 0
+    };
+
+    componentDidMount() {
+        const {navigation} = this.props;
+        const {cart_ids, way} = navigation.state.params;
+        let cartIds = cart_ids;
+        this.setState({
+            cartIds
+        });
+        let _way = 'cart';
+        let delta = this.state.delta;
+        if (typeof way !== 'undefined' && way === 'buy_now') {
+            _way = 'buy_now';
+            delta = 1
+        } else {
+            _way = 'cart';
+            delta = 2
+        }
+        this.setState({
+            cartIds,
+            way: _way,
+            delta
+        });
+        this.props.navigation.addListener(
+            'didFocus',
+            async () => {
+                await this.onShow()
+            }
+        );
     }
 
     render() {
@@ -55,18 +88,19 @@ export default class CartOrderFill extends Component {
             message,
             payState,
             total
-        } = this.state
+        } = this.state;
+
         return (
             <View style={PublicStyles.ViewMax}>
                 <ScrollView>
-                    <List style={{ marginTop: 8 }}>
+                    <List style={{marginTop: 8}}>
                         {addressId > 0 ?
                             <View style={styles.address}>
                                 <View style={styles.selected}>
                                     <Item arrow={'horizontal'} onClick={() => {
                                         this.goAddressList()
                                     }}>
-                                        <View style={{ paddingVertical: 10 }}>
+                                        <View style={{paddingVertical: 10}}>
                                             <View style={styles.selectedNamePhone}>
                                                 <Text style={styles.selectedUserName}>{address.truename}</Text>
                                                 <Text style={styles.selectedUserPhone}>{address.phone}</Text>
@@ -76,24 +110,24 @@ export default class CartOrderFill extends Component {
                                     </Item>
                                 </View>
                                 <Image source={require('../../images/cart/address-footer-line.png')}
-                                       style={styles.addressFooterLine} />
-                            </View> : <TouchableOpacity 
-                                style={styles.address} 
+                                       style={styles.addressFooterLine}/>
+                            </View> : <TouchableOpacity
+                                style={styles.address}
                                 activeOpacity={.8}
                                 onPress={() => {
                                     this.goAddressAdd()
                                 }}
                             >
                                 <View style={styles.unSelect}>
-                                    <Image 
+                                    <Image
                                         style={styles.unSelectImage}
-                                        source={require('../../images/cart/address.png')} 
+                                        source={require('../../images/cart/address.png')}
                                     />
                                     <Text style={styles.unSelectText}>添加地址</Text>
                                 </View>
-                                <Image 
+                                <Image
                                     style={styles.addressFooterLine}
-                                    source={require('../../images/cart/address-footer-line.png')} 
+                                    source={require('../../images/cart/address-footer-line.png')}
                                 />
                             </TouchableOpacity>
                         }
@@ -106,7 +140,7 @@ export default class CartOrderFill extends Component {
                                         <View style={styles.oneItem}>
                                             <View>
                                                 <NetworkImage style={styles.oneItemImage}
-                                                       source={{ uri: item.goods_sku_img }} />
+                                                              source={{uri: item.goods_sku_img}}/>
                                             </View>
                                             <View style={styles.oneItemBody}>
                                                 <Text style={styles.oneItemBodyTitle}>{item.goods_title}</Text>
@@ -138,9 +172,11 @@ export default class CartOrderFill extends Component {
                     </View>
                     <List>
                         <View>
-                            {calculate > 0 ? <Item
+                            {calculate !== null ? <Item
                                 extra={
-                                    <Text style={styles.freightPrice}>+ ¥{calculate.pay_freight_fee}}</Text>
+                                    <View>
+                                        <Text style={styles.freightPrice}>+ ¥{calculate.pay_freight_fee}</Text>
+                                    </View>
                                 }
                             >
                                 运费
@@ -161,7 +197,7 @@ export default class CartOrderFill extends Component {
                         </View>
                     </List>
                 </ScrollView>
-                <SafeAreaView style={{ backgroundColor: '#fff' }}>
+                <SafeAreaView style={{backgroundColor: '#fff'}}>
                     <View style={styles.footer}>
                         <View style={styles.footerLeft}>
                             <Text style={styles.footerLeftLabel}>实付：</Text>
@@ -175,7 +211,7 @@ export default class CartOrderFill extends Component {
                                     this.onCreateOrder()
                                 }}
                                 disabled={!calculate}
-                                style={{ borderRadius: 0 }}
+                                style={{borderRadius: 0}}
                             >
                                 提交订单
                             </Button>
@@ -186,59 +222,32 @@ export default class CartOrderFill extends Component {
         )
     }
 
-    componentDidMount() {
-        const { navigation } = this.props;
-        const { cart_ids, way } = navigation.state.params
-        let cartIds = cart_ids
-        this.setState({
-            cartIds
-        })
-        let _way = 'cart'
-        let delta = this.state.delta
-        if (typeof way !== 'undefined' && way === 'buy_now') {
-            _way = 'buy_now'
-            delta = 1
-        } else {
-            _way = 'cart'
-            delta = 2
-        }
-        this.setState({
-            cartIds,
-            way: _way,
-            delta
-        })
-        this.props.navigation.addListener(
-            'didFocus',
-            async () => {
-                await this.onShow()
-            }
-        );
-    }
-
     goAddressAdd() {
         this.props.navigation.navigate('AddressAdd')
     }
 
     goAddressList() {
-        this.props.navigation.navigate('AddressList', { onAddressChange: this.onAddressChange })
+        this.props.navigation.navigate('AddressList', {onAddressChange: this.onAddressChange})
     }
 
     onAddressChange = (id) => {
         this.setState({
             addressId: id
         })
-    }
+    };
 
     // 计算费用
     async initCalculate() {
-        const cartIds = this.state.cartIds
+        const cartIds = this.state.cartIds;
+        const {userToken} = this.props;
         const calculate = await buyModel.calculate({
             cart_ids: cartIds,
-            address_id: this.state.addressId
-        })
+            address_id: this.state.addressId,
+            userToken
+        });
         if (calculate) {
             this.setState({
-                calculate
+                calculate: calculate
             })
         } else {
             fa.toast.show({
@@ -249,19 +258,23 @@ export default class CartOrderFill extends Component {
 
     // 获得默认地址
     async initAddress() {
-        let address
+        let address;
+        const {userToken} = this.props;
         if (this.state.addressId > 0) {
             address = await addressModel.info({
-                id: this.state.addressId
+                id: this.state.addressId,
+                userToken
             })
         } else {
-            address = await addressModel.getDefault()
+            address = await addressModel.getDefault({
+                userToken
+            })
         }
         if (address) {
             this.setState({
                 addressId: address.id,
                 address
-            })
+            });
             return address
         } else {
             return false
@@ -275,17 +288,17 @@ export default class CartOrderFill extends Component {
     }
 
     async onShow() {
-        const payState = this.state.payState
+        const payState = this.state.payState;
         if (payState === false) {
-            const { navigation } = this.props;
-            const { address_checked_id } = navigation.state.params
-            const addressId = address_checked_id
+            const {navigation} = this.props;
+            const {address_checked_id} = navigation.state.params;
+            const addressId = address_checked_id;
             if (addressId > 0) {
-                this.setState({ addressId })
+                this.setState({addressId})
             }
-            const cartListState = await this.initCartList()
+            const cartListState = await this.initCartList();
             if (cartListState === true) {
-                const address = await this.initAddress()
+                const address = await this.initAddress();
                 if (address.id > 0) {
                     await this.initCalculate()
                 }
@@ -302,13 +315,15 @@ export default class CartOrderFill extends Component {
     }
 
     async initCartList() {
-        const cartIds = this.state.cartIds
-        let checkedGoodsSkuInfoIds = []
-        let checkedCartIds = []
-        let total = 0
+        const {userToken} = this.props
+        const cartIds = this.state.cartIds;
+        let checkedGoodsSkuInfoIds = [];
+        let checkedCartIds = [];
+        let total = 0;
         const result = await cartModel.list({
-            ids: cartIds
-        })
+            ids: cartIds,
+            userToken
+        });
         if (result.list.length > 0) {
             const cartList = result.list
             for (let i = 0; i < cartList.length; i++) {
@@ -322,7 +337,7 @@ export default class CartOrderFill extends Component {
                 checkedGoodsSkuInfoIds,
                 cartList,
                 total
-            })
+            });
             return true
         } else {
             return false
@@ -330,8 +345,8 @@ export default class CartOrderFill extends Component {
     }
 
     async onCreateOrder() {
-        const { calculate, total } = this.state
-        const { navigation } = this.props;
+        const {calculate, total} = this.state;
+        const {dispatch, navigation, userToken} = this.props;
         if (!this.state.addressId) {
             return Toast.info("请选择收货地址");
         }
@@ -340,15 +355,18 @@ export default class CartOrderFill extends Component {
             'address_id': this.state.addressId,
             'cart_ids': this.state.cartIds,
             'message': this.state.message,
-        })
-        navigation.replace('Pay', { 
-            orderInfo,
-            pay_amount: calculate ? parseFloat(calculate.goods_amount + calculate.pay_freight_fee) : parseFloat(total) 
-        })
+            userToken
+        });
+        if (orderInfo) {
+            await dispatch(getOrderStateNum(userToken));
+            navigation.replace('Pay', {
+                orderInfo,
+                pay_amount: calculate ? parseFloat(calculate.goods_amount + calculate.pay_freight_fee) : parseFloat(total)
+            })
+        }
     }
 
 }
-
 
 const styles = StyleSheet.create({
     address: {
