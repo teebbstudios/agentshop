@@ -55,6 +55,7 @@ import ChargeListPage from "../pages/chongzhi/chargePageList";
 import ChargeItemPage from "../pages/chongzhi/chargeItemPage";
 import ChargeOrderFill from "../pages/chongzhi/chargeOrderFill";
 import BalanceTixianRecords from "../pages/custom/balanceTixianRecords";
+import About from "../pages/user/about";
 const modalStyleStackNames = [
     'UserLogin',
     'FullScreenVideo',
@@ -336,6 +337,13 @@ const AppStack = createStackNavigator(
             screen: ChargeOrderFill,
             navigationOptions: {
                 title: '提交订单'
+            }
+        },
+        //关于页面
+        About:{
+            screen: About,
+            navigationOptions: {
+                title: '关于趣玩商城'
             }
         }
     },

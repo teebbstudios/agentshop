@@ -3,8 +3,8 @@ const AppName =  `quwanshop`; // 项目名称
 const AppVersion = `1.0.0`; // 项目版本
 const AppPlatform = Platform.OS; // 项目平台
 const AppStorageName =  `fashop-client`; // 项目存储前缀名称
-const errorCollectApi =  `https://app.wujing.name`; // 错误收集接口地址
-const mobileWebDomain =  `https://app.wujing.name`; // mobile Web域名
+// const errorCollectApi =  `https://app.wujing.name`; // 错误收集接口地址
+// const mobileWebDomain =  `https://app.wujing.name`; // mobile Web域名
 const AppIcon = require('../images/logo.png'); // 项目图标
 const AppEnv = __DEV__ ? 'debug' : 'release'; // 项目环境
 
@@ -69,9 +69,9 @@ export {
     AppVersion,
     AppEnv,
     AppStorageName,
-    errorCollectApi,
+    // errorCollectApi,
     developmentConfig,
     productionConfig,
     env,
-    mobileWebDomain,
+    // mobileWebDomain,
 }

@@ -6,6 +6,7 @@ import {UserApi} from "../../config/api/user";
 import {OrderApi} from '../../config/api/order';
 import {CartApi} from '../../config/api/cart';
 import NavigationService from "../../containers/navigationService";
+import {checkVersionUpdate} from "../app";
 
 
 /**
@@ -52,7 +53,6 @@ export const initUserInfoStorage = () => {
             await dispatch(setUserToken(true, userToken));
             await dispatch(getOrderStateNum(userToken.token));
             await dispatch(getCartTotalNum(userToken.token));
-
         } else {
             //没有用户信息缓存
             //未来邀请注册什么的放在这里写逻辑

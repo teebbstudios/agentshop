@@ -6,4 +6,8 @@ export const ShopApi = {
         url: `${ROOT_URL}shop/info`,
         method: 'GET'
     },
-}
+    version : {
+        url: `${ROOT_URL}shop/app/version`,
+        method: 'GET'
+    }
+};

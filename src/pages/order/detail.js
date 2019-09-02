@@ -1,5 +1,6 @@
 import {
     StyleSheet,
+    ScrollView,
     View,
 } from 'react-native';
 import fa from '../../utils/fa'
@@ -80,7 +81,7 @@ export default class OrderDetail extends Component {
 
     async init() {
         const {userToken} = this.props;
-        const result = await orderModel.detail({id: this.state.id, userToken})
+        const result = await orderModel.detail({id: this.state.id, userToken});
         if (result) {
             this.setState({
                 orderInfo: result.info,
@@ -184,7 +185,7 @@ export default class OrderDetail extends Component {
 
     render() {
         const {orderInfo} = this.state;
-        return orderInfo ? <View>
+        return orderInfo ? <ScrollView>
             <View style={styles.main}>
                 <View style={styles.item}>
                     <OrderStateCard
@@ -221,7 +222,7 @@ export default class OrderDetail extends Component {
                         orderInfo={orderInfo}
                         orderNumber={orderInfo.sn}
                         createTime={orderInfo.create_time}
-                        payment="微信支付"
+                        payment={orderInfo.pay_name}
                         payTime={orderInfo.payment_time}
                         message={orderInfo.extend_order_extend.message ? orderInfo.extend_order_extend.message : '无'}
                     />
@@ -258,7 +259,7 @@ export default class OrderDetail extends Component {
                     />
                 </View>
             </View>
-        </View> : null
+        </ScrollView> : null
     }
 }
 const styles = StyleSheet.create({

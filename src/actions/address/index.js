@@ -24,7 +24,7 @@ export const getDefaultAddress = () => {
             dispatch(updateDefaultAddress(null, fetchStatus.f))
         }
     }
-}
+};
 
 const updateDefaultAddress = (data, fetchStatus) => {
     return {
@@ -32,7 +32,7 @@ const updateDefaultAddress = (data, fetchStatus) => {
         defaultAddress: data,
         defaultAddressFetchStatus: fetchStatus,
     }
-}
+};
 
 export const setDefaultAddress = () => {
     return async dispatch => {

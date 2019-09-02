@@ -18,8 +18,8 @@ import { NavigationActions } from "react-navigation";
 
 export default class PaySuccess extends Component {
     render() {
-        const { navigation } = this.props
-        const { pay_amount, pay_type, id } = navigation.state.params
+        const { navigation } = this.props;
+        const { pay_amount, pay_type, id, userToken } = navigation.state.params;
         return (
             <View style={PublicStyles.ViewOut}>
                 <View style={styles.top}>
@@ -47,9 +47,7 @@ export default class PaySuccess extends Component {
                     </Button>
                     <Button
                         onClick={()=>{
-                            navigation.replace('OrderDetail',{
-                                id
-                            })
+                            navigation.navigate('OrderDetail', {id})
                         }}
                     >
                         查看订单

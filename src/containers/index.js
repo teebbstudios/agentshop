@@ -14,6 +14,7 @@ import {getAreaList} from '../actions/address';
 import {NavigationActions} from 'react-navigation';
 import SplashScreen from "react-native-splash-screen";
 import {fetchStatus} from "../utils";
+import {checkVersionUpdate} from "../actions/app";
 
 class App extends Component {
     componentDidMount() {
@@ -21,6 +22,7 @@ class App extends Component {
         const {
             dispatch
         } = this.props;
+        dispatch(checkVersionUpdate());
         dispatch(initUserInfoStorage());
         dispatch(initWechat());
         dispatch(getHomeView());
@@ -35,23 +37,23 @@ class App extends Component {
     }
 
     onBackPress = () => {
-        const {dispatch, navigation} = this.props;
-        if (navigation.index > 0) {
-            dispatch(NavigationActions.back());
-            return true;
-        } else {
-            Alert.alert(
-                '退出应用',
-                '确认退出应用吗?',
-                [
-                    {text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                    {text: '确认', onPress: () => BackHandler.exitApp()},
-                ],
-                {cancelable: false}
-            );
-            return true;
-        }
-    }
+        // const {dispatch, navigation} = this.props;
+        // if (navigation.index > 0) {
+        //     dispatch(NavigationActions.back());
+        //     return true;
+        // } else {
+        //     Alert.alert(
+        //         '退出应用',
+        //         '确认退出应用吗?',
+        //         [
+        //             {text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        //             {text: '确认', onPress: () => BackHandler.exitApp()},
+        //         ],
+        //         {cancelable: false}
+        //     );
+        //     return true;
+        // }
+    };
 
     render() {
         const {cartNum, homeView, homeViewFetchStatus} = this.props;

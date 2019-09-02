@@ -15,7 +15,7 @@ import AntDesignIcon from "react-native-vector-icons/AntDesign";
 import Alipay from "react-native-yunpeng-alipay";
 import {sendWechatAuthRequest, wechatPay} from "../../actions/app/wechat";
 import {BuyApi} from '../../config/api/buy'
-import {getCartTotalNum, getOrderStateNum} from "../../actions/user";
+import {getCartTotalNum, getOrderStateNum, updateUserInfo} from "../../actions/user";
 
 const Item = List.Item;
 const RadioItem = Radio.RadioItem;
@@ -179,8 +179,10 @@ export default class Pay extends Component {
                 this.paySuccess()
             }, (err) => {
                 console.log(err);
-                this.paySuccess();
-                Toast.warn('支付失败');
+                //this.paySuccess();
+                Toast.warn('支付失败，请到订单列表再次付款。');
+                navigation.navigate('OrderList')
+
             })
     };
     paySuccess = async () => {
@@ -190,10 +192,12 @@ export default class Pay extends Component {
         navigation.replace('PaySuccess', {
             pay_amount,
             pay_type: payment_code === 'wechat' ? `微信支付` : payment_code === 'alipay' ? `支付宝支付` : ``,
-            id: orderInfo.order_id || orderInfo.id
+            id: orderInfo.order_id || orderInfo.id,
+            userToken,
         });
 
-        //付款后更新订单数量
+        //付款后更新订单数量 更新用户信息
+        await dispatch(updateUserInfo(userToken));
         await dispatch(getOrderStateNum(userToken));
         await dispatch(getCartTotalNum(userToken));
 

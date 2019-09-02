@@ -4,6 +4,7 @@ import {PageApi} from "../../config/api/page";
 import {fetchStatus} from '../../utils';
 import Fetch from '../../utils/fetch';
 import {storageModule} from "moji-react-native-utils";
+import {checkVersionUpdate} from "../app";
 
 export const getHomeView = () => {
     return async dispatch => {
@@ -28,7 +29,7 @@ export const getHomeView = () => {
             dispatch(updateHomeView(null, fetchStatus.f))
         }
     }
-}
+};
 
 const updateHomeView = (data, fetchStatus) => {
     return {

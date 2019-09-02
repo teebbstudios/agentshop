@@ -206,6 +206,7 @@ export default class ChargeSpecList extends Component {
                                 return `${item.value_name} `;
                             }) : title
                         },您需要额外付款{current_sku ? parseFloat(current_sku.origin_price) - current_userLevel_origin_price : parseFloat(skus[0].origin_price) - current_userLevel_origin_price}元。</Text>
+                        <Text style={PublicStyles.descTwo9}>备注：会员等级只能升级，不能降级。</Text>
                     </View> : null
                 }
                 {cateType !== 'member' ?
@@ -290,8 +291,8 @@ export default class ChargeSpecList extends Component {
         if (cateType === 'member' && userInfo && userInfo.userLevel) {
             let sku_object = current_sku ? current_sku : skus[0];
             //如果选中是会员等级相同或价格小于等于当前用户的会员等级 不购买。
-            if (sku_object.spec_value_name === userInfo.userLevel || sku_object.origin_price <= current_userLevel_origin_price) {
-                return Toast.warn(`您的会员等级已经是${userInfo.userLevel}了，不用重复购买`)
+            if (sku_object.spec_value_name === userInfo.userLevel || parseFloat(sku_object.origin_price) <= parseFloat(current_userLevel_origin_price)) {
+                return Toast.warn(`您的会员等级已经是${userInfo.userLevel}了。`)
             }
         }
         if (cateType !== 'member' && !message) {

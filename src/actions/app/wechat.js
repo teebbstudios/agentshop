@@ -16,7 +16,7 @@ export const initWechat = ()=>{
             data: isInstalled
         })
     }
-}
+};
 
 
 export const sendWechatAuthRequest=async()=>{
@@ -36,7 +36,7 @@ export const sendWechatAuthRequest=async()=>{
             reject('授权失败')
         })
     }
-}
+};
 
 export const wechatLogin = ({tokenData, userData})=>{
     return async dispatch=>{
@@ -44,11 +44,11 @@ export const wechatLogin = ({tokenData, userData})=>{
             const params = {
                 login_type: 'wechat_app',
                 wechat_openid: userData.openid
-            }
+            };
             const e = await Fetch.fetch({
                 api: UserApi.login,
                 params
-            })
+            });
             if(e.code===10014){
                 dispatch(wechatRegister({ tokenData, userData }))
             }else{

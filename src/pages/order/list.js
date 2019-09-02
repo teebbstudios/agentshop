@@ -202,7 +202,7 @@ export default class OrderList extends Component {
                     api={OrderApi.list}
                     fetchParams={params}
                     renderItem={({item}) => (
-                        <OrderCard key={`card_${item.id}`}>
+                        <OrderCard key={`card_${item.order_sn}`}>
                             <OrderCardHeader
                                 orderId={item.id}
                                 state={item.state}

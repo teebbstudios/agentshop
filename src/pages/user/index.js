@@ -25,6 +25,9 @@ const Item = List.Item;
                  login,
                  userInfo,
                  orderNum,
+             },
+             initial: {
+                 showVersionUpdate,
              }
          }
      }) => (
@@ -32,6 +35,7 @@ const Item = List.Item;
             login,
             userInfo,
             orderNum,
+            showVersionUpdate,
         }
     ))
 export default class User extends BaseComponent {
@@ -199,7 +203,7 @@ export default class User extends BaseComponent {
     }
 
     bot() {
-        const {navigation, login, userInfo} = this.props;
+        const {navigation, login, userInfo, showVersionUpdate} = this.props;
         let botList = [
             {
                 img: require('../../images/user/address.png'),
@@ -230,6 +234,13 @@ export default class User extends BaseComponent {
                 path: "CustomDiscount"
             }) : botList
         }
+        {
+            botList.push({
+                img: require('../../images/user/about.png'),
+                title: '关于趣玩商城',
+                path: "About"
+            })
+        }
         return (
             <ScrollView style={PublicStyles.ViewMax}>
                 <List style={PublicStyles.ViewMax}>
@@ -243,18 +254,19 @@ export default class User extends BaseComponent {
                                 <View style={PublicStyles.rowCenter}>
                                     <Image style={styles.botImg} source={item.img}/>
                                     <Text style={PublicStyles.title}>{item.title}</Text>
+                                    {
+                                        item.title === '关于趣玩商城' && showVersionUpdate ?  <Badge
+                                            textStyle={{color: '#fff', fontSize: 10, paddingHorizontal: 2}}
+                                        >
+                                            有新版本
+                                        </Badge> : null
+                                    }
                                 </View>
                             </Item>
                         ))
                     }
                 </List>
-                {/*<View style={styles.fashopCopyright}>*/}
-                {/*    <View style={styles.fashopCopyrightBody}>*/}
-                {/*        /!*<Image source={require('../../images/fashop/copyright.png')} mode="aspectFit"*!/*/}
-                {/*        /!*       style={styles.fashopCopyrightImg} />*!/*/}
-                {/*        <Text style={styles.fashopCopyrightText}>舍人（上海）网络科技有限公司提供技术支持</Text>*/}
-                {/*    </View>*/}
-                {/*</View>*/}
+
             </ScrollView>
         )
     }
