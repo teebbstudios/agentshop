@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
@@ -6,18 +6,20 @@ import {
     Image,
     TouchableOpacity
 } from 'react-native';
+import {SearchBar} from "antd-mobile-rn";
 
 export default class PageGoodsSearch extends Component {
     render() {
-        const { goGoodsList } = this.props;
-        const { options } = this.props.data;
-        const { background_color } = options;
-        return <TouchableOpacity 
-            style={[styles.warp,{backgroundColor: background_color}]}
+        const {goGoodsList} = this.props;
+        const {options} = this.props.data;
+        const {background_color} = options;
+        return <TouchableOpacity
+            style={[styles.warp, {backgroundColor: background_color}]}
             activeOpacity={.8}
             onPress={goGoodsList}
         >
-            <View style={[styles.inputView,{borderWidth: (background_color==='#fff'||background_color==='#ffffff') ? 0.5 : 0}]}>
+            <View
+                style={[styles.inputView, {borderWidth: (background_color === '#fff' || background_color === '#ffffff') ? 0.5 : 0}]}>
                 <Image style={styles.img} source={require('../../images/search.png')}/>
                 <TextInput
                     placeholder="搜索商品"
@@ -46,7 +48,8 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     input: {
-        height: 32,
-        textAlign: 'center'
+        height: 34,
+        fontSize: 12,
+        textAlign: 'center',
     }
 });
