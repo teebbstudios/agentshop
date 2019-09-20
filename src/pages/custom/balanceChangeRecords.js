@@ -37,7 +37,7 @@ export default class BalanceChangeRecords extends Component {
             <View style={PublicStyles.ViewMax}>
                 <ScrollView>
                     <Item arrow="down">
-                        余额变动记录：
+                        资金记录：
                     </Item>
                     <FlatList
                         ref={e => this.FlatList = e}
@@ -59,7 +59,11 @@ export default class BalanceChangeRecords extends Component {
                                     </View>
                                     <View style={{flexDirection: 'row'}}>
                                         <Text style={styles.tixianInfoLabel}>变动金额：</Text>
-                                        <Text style={styles.tixianInfoText}>{item.change}</Text>
+                                        {
+                                            item.change >= 0 ? <Text style={styles.tixianAddText}>+{item.change}</Text> :
+                                            <Text style={styles.tixianMinusText}>{item.change}</Text>
+                                        }
+
                                     </View>
                                     <View style={{flexDirection: 'row'}}>
                                         <Text style={styles.tixianInfoLabel}>账户余额：</Text>
@@ -114,5 +118,17 @@ const styles = StyleSheet.create({
         fontSize: 16,
         lineHeight: 24,
         color: "#666"
+    },
+    tixianAddText: {
+        flex: 3,
+        fontSize: 16,
+        lineHeight: 24,
+        color: "#e7453c"
+    },
+    tixianMinusText: {
+        flex: 3,
+        fontSize: 16,
+        lineHeight: 24,
+        color: "#3aa757"
     }
 });

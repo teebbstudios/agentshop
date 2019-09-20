@@ -5,7 +5,7 @@ import {
     Text,
     Image,
     ScrollView,
-    TouchableOpacity
+    TouchableOpacity, Linking
 } from 'react-native';
 import {List} from "antd-mobile-rn";
 // import { updateUserInfo } from '../../actions/user';
@@ -15,6 +15,7 @@ import EntypoIcon from "react-native-vector-icons/Entypo";
 import {connect} from "react-redux";
 import Badge from "@react-native-component/react-native-smart-badge";
 import {BaseComponent} from "../../components/basecomponent";
+import {env} from '../../config/index';
 
 const Item = List.Item;
 
@@ -57,7 +58,7 @@ export default class User extends BaseComponent {
         const {login, userInfo, navigation} = this.props;
         return (
             <TouchableOpacity
-                style={[PublicStyles.rowBetweenCenter, styles.topWarp]}
+                style={[PublicStyles.rowBetweenCenter, styles.topWarp,{backgroundColor: '#fedd04'}]}
                 activeOpacity={.8}
                 onPress={() => {
                     navigation.navigate(login ? "UserInfo" : "UserLogin")
@@ -214,26 +215,31 @@ export default class User extends BaseComponent {
                 title: '商品收藏',
                 path: "CollectGoods"
             }, {
-                img: require('../../images/user/tixian.png'),
-                title: '余额提现',
-                path: "BalanceTixian"
-            }, {
-                img: require('../../images/user/tixianjilu.png'),
-                title: '提现记录',
-                path: "BalanceTixianRecords"
-            }, {
-                img: require('../../images/user/record.png'),
-                title: '余额变动记录',
-                path: "BalanceChangeRecords"
+                img: require('../../images/user/service.png'),
+                title: '联系客服',
+                path: "ContactService"
             }
+            // , {
+            //     img: require('../../images/user/tixian.png'),
+            //     title: '余额提现',
+            //     path: "BalanceTixian"
+            // }, {
+            //     img: require('../../images/user/tixianjilu.png'),
+            //     title: '提现记录',
+            //     path: "BalanceTixianRecords"
+            // }, {
+            //     img: require('../../images/user/record.png'),
+            //     title: '余额变动记录',
+            //     path: "BalanceChangeRecords"
+            // }
         ];
-        {
-            userInfo && userInfo.userLevel !== '普通用户' ? botList.push({
-                img: require('../../images/user/discount.png'),
-                title: '自定义显示折扣',
-                path: "CustomDiscount"
-            }) : botList
-        }
+        // {
+        //     userInfo && userInfo.userLevel !== '普通用户' ? botList.push({
+        //         img: require('../../images/user/discount.png'),
+        //         title: '自定义显示折扣',
+        //         path: "CustomDiscount"
+        //     }) : botList
+        // }
         {
             botList.push({
                 img: require('../../images/user/about.png'),
@@ -265,6 +271,16 @@ export default class User extends BaseComponent {
                             </Item>
                         ))
                     }
+                    <Item
+                        key='agentPrice'
+                        arrow="horizontal"
+                        onClick={() => Linking.openURL(env.apiHost + '/content/4/detail')}
+                    >
+                        <View style={PublicStyles.rowCenter}>
+                            <Image style={styles.botImg} source={require('../../images/tab/tab3.png')}/>
+                            <Text style={PublicStyles.title}>会员代理特价</Text>
+                        </View>
+                    </Item>
                 </List>
 
             </ScrollView>

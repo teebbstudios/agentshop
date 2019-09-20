@@ -27,7 +27,7 @@ export default class OrderBaseInfo extends Component {
     };
 
     setClipboardData() {
-        const {orderNumber} = this.props
+        const {orderNumber} = this.props;
         Clipboard.setString(`${orderNumber}`);
         fa.toast.show({title: '已复制', type: 'info'})
     }

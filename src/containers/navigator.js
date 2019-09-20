@@ -56,6 +56,11 @@ import ChargeItemPage from "../pages/chongzhi/chargeItemPage";
 import ChargeOrderFill from "../pages/chongzhi/chargeOrderFill";
 import BalanceTixianRecords from "../pages/custom/balanceTixianRecords";
 import About from "../pages/user/about";
+import Agent from "../pages/Agent";
+import AgentInfo from "../pages/Agent/agentInfo";
+import AgentOrderList from "../pages/Agent/agentOrderList";
+import ContactService from "../pages/user/ContactService";
+
 const modalStyleStackNames = [
     'UserLogin',
     'FullScreenVideo',
@@ -73,7 +78,7 @@ function getCurrentRouteName(navigationState) {
     return route.routeName;
 }
 
-const indexNavigationOptions = ({ navigation, screenProps }) => ({
+const indexNavigationOptions = ({navigation, screenProps}) => ({
     'Home': {
         title: screenProps.homeTitle
     },
@@ -82,6 +87,9 @@ const indexNavigationOptions = ({ navigation, screenProps }) => ({
     },
     'Cart': {
         title: '购物车',
+    },
+    'Agent': {
+        title: '代理',
     },
     'User': {
         title: '我的',
@@ -92,7 +100,7 @@ const AppStack = createStackNavigator(
     {
         Index: {
             screen: Index,
-            navigationOptions:({ navigation, screenProps }) => {
+            navigationOptions: ({navigation, screenProps}) => {
                 return indexNavigationOptions({navigation, screenProps})[getCurrentRouteName(navigation.state)]
             }
         },
@@ -284,71 +292,89 @@ const AppStack = createStackNavigator(
                 title: '评价列表'
             }
         },
-        CollectGoods:{
+        CollectGoods: {
             screen: CollectGoods,
             navigationOptions: {
                 title: '商品收藏'
             }
         },
         //自定义折扣显示
-        CustomDiscount:{
+        CustomDiscount: {
             screen: CustomDiscount,
             navigationOptions: {
                 title: '自定义显示折扣'
             }
         },
         //提现申请
-        BalanceTixian:{
+        BalanceTixian: {
             screen: BalanceTixian,
             navigationOptions: {
                 title: '余额提现'
             }
         },
         //提现记录
-        BalanceTixianRecords:{
+        BalanceTixianRecords: {
             screen: BalanceTixianRecords,
             navigationOptions: {
-                title: '余额变动记录'
+                title: '提现记录'
             }
         },
         //余额变更记录
-        BalanceChangeRecords:{
+        BalanceChangeRecords: {
             screen: BalanceChangeRecords,
             navigationOptions: {
-                title: '余额变动记录'
+                title: '资金记录'
             }
         },
         //充值列表
-        ChargePageList:{
+        ChargePageList: {
             screen: ChargeListPage,
             navigationOptions: {
                 title: '充值列表'
             }
         },
         //充值项目页
-        ChargeItemPage:{
+        ChargeItemPage: {
             screen: ChargeItemPage,
             navigationOptions: {
                 title: '充值'
             }
         },
         //充值下单页
-        ChargeOrderFill:{
+        ChargeOrderFill: {
             screen: ChargeOrderFill,
             navigationOptions: {
                 title: '提交订单'
             }
         },
         //关于页面
-        About:{
+        About: {
             screen: About,
             navigationOptions: {
                 title: '关于趣玩商城'
             }
+        },
+        AgentInfo: {
+            screen: AgentInfo,
+            navigationOptions: {
+                title: '代理账户信息'
+            }
+        },
+        AgentOrderList: {
+            screen: AgentOrderList,
+            navigationOptions: {
+                title: '代理订单管理'
+            }
+        },
+        ContactService: {
+            screen: ContactService,
+            navigationOptions: {
+                title: '联系客服'
+            }
         }
     },
     {
-        navigationOptions: ({ navigation }) => ({
+        navigationOptions: ({navigation}) => ({
             headerBackTitle: null,
             gesturesEnabled: true,
             headerStyle: {
@@ -363,8 +389,8 @@ const AppStack = createStackNavigator(
         mode: "card",
         transitionConfig: (e) => ({
             screenInterpolator: (sceneProps) => {
-                const { scene } = sceneProps;
-                const { route } = scene;
+                const {scene} = sceneProps;
+                const {route} = scene;
                 if (modalStyleStackNames.includes(route.routeName)) {
                     return StackViewStyleInterpolator.forVertical(sceneProps);
                 }
@@ -374,7 +400,7 @@ const AppStack = createStackNavigator(
     }
 );
 
-const AdStack = createStackNavigator({ 
+const AdStack = createStackNavigator({
     Ad: {
         screen: Ad,
         navigationOptions: {

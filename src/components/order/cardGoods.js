@@ -28,7 +28,7 @@ export default class OrderCardGoods extends Component {
         const {
             goodsList,
         } = this.props
-        return <View>
+        return <View style={{backgroundColor: '#f3f3f3'}}>
             {goodsList.length > 1 ? <TouchableOpacity onPress={() => {
                 this.onClick()
             }}>

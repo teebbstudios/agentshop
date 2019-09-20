@@ -91,9 +91,13 @@ export default class OrderDetail extends Component {
     }
 
     onGoodsDetail(goodsInfo) {
-        this.props.navigation.navigate('GoodsDetail', {
-            id: goodsInfo.goods_id,
-        })
+        const {orderInfo} = this.state;
+        if (orderInfo.cate_type === 'goods')
+        {
+            this.props.navigation.navigate('GoodsDetail', {
+                id: goodsInfo.goods_id,
+            })
+        }
     }
 
     async onCancel() {

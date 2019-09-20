@@ -1,3 +1,8 @@
+import {
+    PermissionsAndroid,
+    Alert,
+    Platform
+} from 'react-native';
 import ImagePicker from 'react-native-image-picker'
 import {Toast} from './function';
 import Fetch from '../utils/fetch'
@@ -17,6 +22,15 @@ var options = {
 };
 
 export const imagePicker = (callback, params = {}) => {
+    if(Platform.OS === 'android'){
+        PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA)
+            .then(res => {
+                if(res !== 'granted') {
+                    Alert.alert('相机权限没打开', '请在手机的“设置”选项中,允许访问您的摄像头和麦克风')
+                }
+            });
+    }
+
     if (params.type) {
         ImagePicker.showImagePicker(options, (response) => {
             if (response.error) {

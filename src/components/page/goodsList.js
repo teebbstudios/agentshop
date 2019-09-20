@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
@@ -6,13 +6,15 @@ import {
     Image,
     TouchableOpacity
 } from 'react-native';
-import { windowWidth, ThemeStyle } from '../../utils/style';
-import { NetworkImage } from "../theme"
+import {windowWidth, ThemeStyle} from '../../utils/style';
+import {NetworkImage} from "../theme";
+import {env} from '../../config/index';
 
 export default class PageGoodsList extends Component {
     render() {
-        const { data, options } = this.props.data;
-        const { goods_display_field, layout_style } = options;
+        const {navigation} = this.props;
+        const {data, options} = this.props.data;
+        const {goods_display_field, layout_style} = options;
         const showTitle = goods_display_field.indexOf('title') > -1;
         const showPrice = goods_display_field.indexOf('price') > -1;
         const showMarketPrice = goods_display_field.indexOf('market_price') > -1;
@@ -20,7 +22,7 @@ export default class PageGoodsList extends Component {
         // 展示形式：大图1、小图2、一大两小3、列表4
         return <View style={styles.goodsListWarp}>
             {
-                data.map((item,index)=>{
+                data.map((item, index) => {
                     const params = {
                         item,
                         index,
@@ -30,16 +32,56 @@ export default class PageGoodsList extends Component {
                     };
                     return this.list(params);
                     switch (layout_style) {
-                        case 1: return this.small(params);
-                        case 2: return this.big(params);
-                        case 3: return this.oneBigTwoSmall(params);
-                        case 4: return this.list(params);
-                        default: return <Text>NULL</Text>
+                        case 1:
+                            return this.small(params);
+                        case 2:
+                            return this.big(params);
+                        case 3:
+                            return this.oneBigTwoSmall(params);
+                        case 4:
+                            return this.list(params);
+                        default:
+                            return <Text>NULL</Text>
                     }
                 })
             }
+            <TouchableOpacity
+                key='online-game'
+                style={styles.listWarp}
+                onPress={() => navigation.navigate("ChargePageList", {cateType: 'online-game'}) }
+            >
+                <NetworkImage style={styles.indexImg} imageStyle={{borderRadius: 4}}
+                       source={{uri: `${env.apiHost}/app/online-game.jpg`}}/>
+                <View style={styles.listRight}>
+                    <Text style={styles.listTitle} numberOfLines={3}>游戏充值</Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+                key='tencent'
+                style={styles.listWarp}
+                onPress={() => navigation.navigate("ChargePageList", {cateType: 'tencent'}) }
+            >
+                <NetworkImage style={styles.indexImg} imageStyle={{borderRadius: 4}}
+                       source={{uri: `${env.apiHost}/app/qqchongzhi.jpg`}}/>
+                <View style={styles.listRight}>
+                    <Text style={styles.listTitle} numberOfLines={3}>QQ充值</Text>
+                </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                key='oil'
+                style={styles.listWarp}
+                onPress={() => navigation.navigate("ChargePageList", {cateType: 'oil'}) }
+            >
+                <NetworkImage style={styles.indexImg} imageStyle={{borderRadius: 4}}
+                       source={{uri: `${env.apiHost}/app/164aa58d75b233fdd36f5632439a7682.jpg`}}/>
+                <View style={styles.listRight}>
+                    <Text style={styles.listTitle} numberOfLines={3}>加油卡</Text>
+                </View>
+            </TouchableOpacity>
         </View>
     }
+
     big({item, index, showTitle, showPrice, showMarketPrice}) {
         return (
             <TouchableOpacity
@@ -47,7 +89,7 @@ export default class PageGoodsList extends Component {
                 style={styles.bigWarp}
                 onPress={() => this.goDetail(item.id)}
             >
-                <NetworkImage style={styles.bigImg} source={{uri: item.img}} />
+                <NetworkImage style={styles.bigImg} source={{uri: item.img}}/>
                 <View style={styles.bigBot}>
                     <Text style={styles.bigTitle} numberOfLines={2}>{showTitle ? item.title : ''}</Text>
                     <View>
@@ -58,6 +100,7 @@ export default class PageGoodsList extends Component {
             </TouchableOpacity>
         )
     }
+
     small({item, index, showTitle, showPrice, showMarketPrice}) {
         // const { data } = this.props;
         return (
@@ -67,28 +110,30 @@ export default class PageGoodsList extends Component {
                 style={
                     index % 2 === 0 ? {
                         marginRight: 10,
-                        width: (windowWidth - 10 - (2*10)) / 2,
+                        width: (windowWidth - 10 - (2 * 10)) / 2,
                         marginTop: 10,
                     } : {
-                        width: (windowWidth - 10 - (2*10)) / 2,
+                        width: (windowWidth - 10 - (2 * 10)) / 2,
                         marginTop: 10,
                     }
                 }
             >
-                <NetworkImage style={styles.smallImg} source={{uri: item.img}} />
+                <NetworkImage style={styles.smallImg} source={{uri: item.img}}/>
                 <View style={styles.smallBot}>
                     <Text style={styles.smallTitle} numberOfLines={2}>{showTitle ? item.title : ''}</Text>
                     <View>
-                        <Text style={styles.smallMarketPriceText}>{showMarketPrice ? `￥${item.market_price}` : ''}</Text>
+                        <Text
+                            style={styles.smallMarketPriceText}>{showMarketPrice ? `￥${item.market_price}` : ''}</Text>
                         <Text style={styles.smallPriceText}>{showPrice ? `￥${item.price}` : ''}</Text>
                     </View>
                 </View>
             </TouchableOpacity>
         )
     }
+
     oneBigTwoSmall({item, index, showTitle, showPrice, showMarketPrice}) {
-        const width = (index + 1) % 3 === 0 || (index + 1) % 3 === 2 ? (windowWidth-10-(10*2)) / 2 : windowWidth-(10*2)
-        const height = (index + 1) % 3 === 0 || (index + 1) % 3 === 2 ? (windowWidth-10-(10*2)) / 2 : (windowWidth-(10*2))*0.88
+        const width = (index + 1) % 3 === 0 || (index + 1) % 3 === 2 ? (windowWidth - 10 - (10 * 2)) / 2 : windowWidth - (10 * 2)
+        const height = (index + 1) % 3 === 0 || (index + 1) % 3 === 2 ? (windowWidth - 10 - (10 * 2)) / 2 : (windowWidth - (10 * 2)) * 0.88
         return (
             <TouchableOpacity
                 key={index}
@@ -99,27 +144,29 @@ export default class PageGoodsList extends Component {
                     marginTop: 10
                 }}
             >
-                <NetworkImage style={[styles.smallImg,{ width, height }]} source={{uri: item.img}} />
+                <NetworkImage style={[styles.smallImg, {width, height}]} source={{uri: item.img}}/>
                 <View style={styles.smallBot}>
                     <Text style={styles.smallTitle} numberOfLines={2}>{showTitle ? item.title : ''}</Text>
                     <View>
-                        <Text style={styles.smallMarketPriceText}>{showMarketPrice ? `￥${item.market_price}` : ''}</Text>
+                        <Text
+                            style={styles.smallMarketPriceText}>{showMarketPrice ? `￥${item.market_price}` : ''}</Text>
                         <Text style={styles.smallPriceText}>{showPrice ? `￥${item.price}` : ''}</Text>
                     </View>
                 </View>
             </TouchableOpacity>
         )
     }
-    list({item, index, showTitle, showPrice, showMarketPrice}) {
+
+    listOld({item, index, showTitle, showPrice, showMarketPrice}) {
         return (
             <TouchableOpacity
                 key={index}
                 style={styles.listWarp}
                 onPress={() => this.goDetail(item.id)}
             >
-                <NetworkImage style={styles.listImg} source={{uri: item.img}} />
+                <NetworkImage style={styles.listImg} source={{uri: item.img}}/>
                 <View style={styles.listRight}>
-                    <Text style={styles.listTitle} numberOfLines={3} >{showTitle ? item.title : ''}</Text>
+                    <Text style={styles.listTitle} numberOfLines={3}>{showTitle ? item.title : ''}</Text>
                     <View>
                         <Text style={styles.listMarketPriceText}>{showMarketPrice ? `￥${item.market_price}` : ''}</Text>
                         <Text style={styles.listPriceText}>{showPrice ? `￥${item.price}` : ''}</Text>
@@ -128,8 +175,29 @@ export default class PageGoodsList extends Component {
             </TouchableOpacity>
         )
     }
-    goDetail(id){
-        this.props.navigation.navigate('GoodsDetail',{
+
+    list({item, index, showTitle, showPrice, showMarketPrice}) {
+        return (
+            <TouchableOpacity
+                key={index}
+                style={styles.listWarp}
+                onPress={() => this.goDetail(item.id)}
+            >
+                <NetworkImage style={styles.indexImg} imageStyle={{borderRadius: 4}}
+                              source={{uri: item.img}}/>
+                <View style={styles.listRight}>
+                    <Text style={styles.listTitle} numberOfLines={3}>{showTitle ? item.title : ''}</Text>
+                    {/*<View>*/}
+                    {/*    <Text style={styles.listMarketPriceText}>{showMarketPrice ? `￥${item.market_price}` : ''}</Text>*/}
+                    {/*    <Text style={styles.listPriceText}>{showPrice ? `￥${item.price}` : ''}</Text>*/}
+                    {/*</View>*/}
+                </View>
+            </TouchableOpacity>
+        )
+    }
+
+    goDetail(id) {
+        this.props.navigation.navigate('GoodsDetail', {
             id
         })
     }
@@ -137,94 +205,98 @@ export default class PageGoodsList extends Component {
 
 const styles = StyleSheet.create({
     // warp
-    goodsListWarp:{
+    goodsListWarp: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         paddingHorizontal: 10,
     },
     // list
-    listWarp:{
-        width: windowWidth-(10*2),
-        flexDirection: 'row',
+    listWarp: {
+        width: windowWidth - (10 * 2),
+        flexDirection: 'column',
         backgroundColor: '#fff',
         paddingVertical: 10,
         borderBottomWidth: 0.5,
         borderBottomColor: '#eaeaea',
     },
-    listImg:{
+    listImg: {
         width: 100,
         height: 100,
         marginRight: 10,
     },
-    listRight:{
+    indexImg: {
+        height: 120,
+        borderRadius: 4
+    },
+    listRight: {
         flex: 1,
         justifyContent: 'space-around',
     },
-    listTitle:{
+    listTitle: {
         marginBottom: 20,
         fontSize: 14,
         fontWeight: '400',
         lineHeight: 16,
     },
-    listMarketPriceText:{
+    listMarketPriceText: {
         fontSize: 12,
         marginRight: 6,
         color: '#ccc',
         textDecorationLine: 'line-through',
     },
-    listPriceText:{
+    listPriceText: {
         color: ThemeStyle.ThemeColor,
     },
 
     // big
-    bigWarp:{
+    bigWarp: {
         marginTop: 10,
     },
-    bigImg:{
-        width: windowWidth-(10*2),
-        height: (windowWidth-(10*2))*0.88,
+    bigImg: {
+        width: windowWidth - (10 * 2),
+        height: (windowWidth - (10 * 2)) * 0.88,
     },
-    bigBot:{
+    bigBot: {
         backgroundColor: '#fff',
         paddingHorizontal: 10
     },
-    bigTitle:{
+    bigTitle: {
         marginVertical: 6,
         fontSize: 14,
         fontWeight: '400',
         lineHeight: 16,
     },
-    bigMarketPriceText:{
+    bigMarketPriceText: {
         marginRight: 6,
         color: '#ccc',
         textDecorationLine: 'line-through'
     },
-    bigPriceText:{
+    bigPriceText: {
         color: ThemeStyle.ThemeColor,
         marginBottom: 10,
     },
     // small
-    smallImg:{
-        width: (windowWidth - 10-(10*2)) / 2,
-        height: (windowWidth - 10-(10*2)) / 2,
+    smallImg: {
+        width: (windowWidth - 10 - (10 * 2)) / 2,
+        height: (windowWidth - 10 - (10 * 2)) / 2,
     },
-    smallBot:{
+    smallBot: {
         backgroundColor: '#fff',
         paddingHorizontal: 10,
     },
-    smallTitle:{
+    smallTitle: {
         marginVertical: 6,
         fontSize: 14,
         fontWeight: '400',
         lineHeight: 20,
         height: 40
     },
-    smallMarketPriceText:{
+    smallMarketPriceText: {
         marginRight: 6,
         color: '#ccc',
         textDecorationLine: 'line-through'
     },
-    smallPriceText:{
+    smallPriceText: {
         color: ThemeStyle.ThemeColor,
         marginBottom: 10,
     },

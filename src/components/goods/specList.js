@@ -162,18 +162,18 @@ export default class GoodsSpecList extends Component {
                     }) : null
                 }
 
-                <View style={[styles.titleTop, {
-                    flexDirection: 'column',
-                    justifyContent: 'flex-start',
-                    alignItems: 'flex-start',
-                    paddingBottom: 10
-                }]}>
-                    {userLevelInfo.map((item, index) => {
-                        return <Text key={index} style={PublicStyles.descTwo9}>会员等级：{item.name} 立享 {item.discount}折
-                            价格：{current_sku ? (current_sku.origin_price * item.discount / 10).toFixed(2) : (skus[0].origin_price * item.discount / 10).toFixed(2)}元</Text>
-                    })}
-                    <Text style={PublicStyles.descTwo9}>备注：实际价格请以选中的商品属性标价为准。</Text>
-                </View>
+                {/*<View style={[styles.titleTop, {*/}
+                {/*    flexDirection: 'column',*/}
+                {/*    justifyContent: 'flex-start',*/}
+                {/*    alignItems: 'flex-start',*/}
+                {/*    paddingBottom: 10*/}
+                {/*}]}>*/}
+                {/*    {userLevelInfo.map((item, index) => {*/}
+                {/*        return <Text key={index} style={PublicStyles.descTwo9}>会员等级：{item.name} 立享 {item.discount}折*/}
+                {/*            价格：{current_sku ? (current_sku.origin_price * item.discount / 10).toFixed(2) : (skus[0].origin_price * item.discount / 10).toFixed(2)}元</Text>*/}
+                {/*    })}*/}
+                {/*    <Text style={PublicStyles.descTwo9}>备注：实际价格请以选中的商品属性标价为准。</Text>*/}
+                {/*</View>*/}
 
                 <View style={[PublicStyles.rowBetweenCenter, styles.SpecListNumView]}>
                     <Text>数量</Text>
@@ -202,7 +202,7 @@ export default class GoodsSpecList extends Component {
                     }}
                     onClick={() => {
                         if (!canBuy) {
-                            return Toast.warn(`您已超过购买数量限制，请查看购买其他商品。`);
+                            return Toast.warn(`您已超过购买数量限制，请升级代理等级。`);
                         }
                         if (userInfo && userInfo.userLevel && userInfo.userLevel !== '普通用户' && theResultCanBuyNum > 0 && canBuy) {
                             if (quantity > theResultCanBuyNum) {

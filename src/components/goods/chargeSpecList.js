@@ -26,6 +26,12 @@ export default class ChargeSpecList extends Component {
         quantity: 1,
         message: null,
         theResultCanBuyNum: null,
+        oilName: null,
+        oilAddress: null,
+        oilPhone: null,
+        gameAccount: null,
+        gameServer: null,
+        gameRole: null,
     };
 
     componentDidMount() {
@@ -69,7 +75,13 @@ export default class ChargeSpecList extends Component {
                 }
                 <View style={styles.popModalTitleTight}>
                     <Text style={{fontSize: 16, color: '#666666'}}>
-                        {cateType && cateType === 'tencent' ? 'QQ充值 ' : cateType === 'online-game' ? '游戏充值 ' : null}
+                        {cateType === 'tencent' ? 'QQ充值列表' :
+                            cateType === 'online-game' ? '游戏充值列表' :
+                                cateType === 'oil' ? '加油卡' :
+                                    cateType === 'video' ? '视频会员' :
+                                        cateType === 'live' ? '直播平台' :
+                                            cateType === 'gift-card' ? '礼品卡' :
+                                                null}
                         {title}
                     </Text>
                     {cateType === 'member' ?
@@ -180,18 +192,20 @@ export default class ChargeSpecList extends Component {
                         )
                     }) : null
                 }
-                <View style={[PublicStyles.rowBetweenCenter, styles.SpecListNumView]}>
-                    <Text>数量</Text>
-                    <Stepper
-                        stock={current_sku ? current_sku.stock : 1}
-                        defaultValue={quantity}
-                        onChange={(e) => {
-                            this.setState({
-                                quantity: e
-                            })
-                        }}
-                    />
-                </View>
+                {/*如果当前为用户充值页面，不显示数量*/}
+                {userInfo && cateType !== 'member' ?
+                    <View style={[PublicStyles.rowBetweenCenter, styles.SpecListNumView]}>
+                        <Text>数量</Text>
+                        <Stepper
+                            stock={current_sku ? current_sku.stock : 1}
+                            defaultValue={quantity}
+                            onChange={(e) => {
+                                this.setState({
+                                    quantity: e
+                                })
+                            }}
+                        />
+                    </View> : null}
                 {/*会员等级变更说明*/}
                 {userInfo && cateType === 'member' ?
                     <View style={[styles.titleTop, {
@@ -205,11 +219,11 @@ export default class ChargeSpecList extends Component {
                             current_sku && current_sku.spec && current_sku.spec[0].id ? current_sku.spec.map((item) => {
                                 return `${item.value_name} `;
                             }) : title
-                        },您需要额外付款{current_sku ? parseFloat(current_sku.origin_price) - current_userLevel_origin_price : parseFloat(skus[0].origin_price) - current_userLevel_origin_price}元。</Text>
+                        },您需要额外付款{current_sku ? (parseFloat(current_sku.origin_price) - current_userLevel_origin_price).toFixed(2) : (parseFloat(skus[0].origin_price) - current_userLevel_origin_price).toFixed(2)}元。</Text>
                         <Text style={PublicStyles.descTwo9}>备注：会员等级只能升级，不能降级。</Text>
                     </View> : null
                 }
-                {cateType !== 'member' ?
+                {cateType !== 'member' && cateType !== 'oil' && cateType !== 'online-game' ?
                     <View style={styles.message}>
                         <Text>充值号码/账号</Text>
                         <TextInput
@@ -220,21 +234,71 @@ export default class ChargeSpecList extends Component {
                         />
                     </View> : null
                 }
-
-                {cateType === 'member' ? null :
-                    <View style={[styles.titleTop, {
-                        flexDirection: 'column',
-                        justifyContent: 'flex-start',
-                        alignItems: 'flex-start',
-                        paddingBottom: 10
-                    }]}>
-                        {userLevelInfo.map((item, index) => {
-                            return <Text key={index} style={PublicStyles.descTwo9}>会员等级：{item.name} 立享 {item.discount}折
-                                价格：{current_sku ? (current_sku.origin_price * item.discount / 10).toFixed(2) : (skus[0].origin_price * item.discount / 10).toFixed(2)}元</Text>
-                        })}
-                        <Text style={PublicStyles.descTwo9}>备注：实际价格请以选中的商品属性标价为准。</Text>
-                    </View>
+                {cateType === 'oil' ?
+                    <View style={styles.message}>
+                        <Text>姓名</Text>
+                        <TextInput
+                            placeholder={'必填，请输入姓名'}
+                            style={{height: 40, borderColor: '#eaeaea', borderWidth: 1, marginTop: 10,}}
+                            onChangeText={(oilName) => this.setState({oilName})}
+                            value={this.state.oilName}
+                        />
+                        <Text>地址</Text>
+                        <TextInput
+                            placeholder={'必填，请输入地址'}
+                            style={{height: 40, borderColor: '#eaeaea', borderWidth: 1, marginTop: 10,}}
+                            onChangeText={(oilAddress) => this.setState({oilAddress})}
+                            value={this.state.oilAddress}
+                        />
+                        <Text>电话</Text>
+                        <TextInput
+                            placeholder={'必填，请输入电话'}
+                            style={{height: 40, borderColor: '#eaeaea', borderWidth: 1, marginTop: 10,}}
+                            onChangeText={(oilPhone) => this.setState({oilPhone})}
+                            value={this.state.oilPhone}
+                        />
+                    </View> : null
                 }
+                {cateType === 'online-game' ?
+                    <View style={styles.message}>
+                        <Text>游戏账号</Text>
+                        <TextInput
+                            placeholder={'必填，请输入游戏账号'}
+                            style={{height: 40, borderColor: '#eaeaea', borderWidth: 1, marginTop: 10,}}
+                            onChangeText={(gameAccount) => this.setState({gameAccount})}
+                            value={this.state.gameAccount}
+                        />
+                        <Text>游戏区服</Text>
+                        <TextInput
+                            placeholder={'必填，请输入游戏区服'}
+                            style={{height: 40, borderColor: '#eaeaea', borderWidth: 1, marginTop: 10,}}
+                            onChangeText={(gameServer) => this.setState({gameServer})}
+                            value={this.state.gameServer}
+                        />
+                        <Text>游戏角色</Text>
+                        <TextInput
+                            placeholder={'必填，请输入电话'}
+                            style={{height: 40, borderColor: '#eaeaea', borderWidth: 1, marginTop: 10,}}
+                            onChangeText={(gameRole) => this.setState({gameRole})}
+                            value={this.state.gameRole}
+                        />
+                    </View> : null
+                }
+
+                {/*{cateType === 'member' ? null :*/}
+                {/*    <View style={[styles.titleTop, {*/}
+                {/*        flexDirection: 'column',*/}
+                {/*        justifyContent: 'flex-start',*/}
+                {/*        alignItems: 'flex-start',*/}
+                {/*        paddingBottom: 10*/}
+                {/*    }]}>*/}
+                {/*        {userLevelInfo.map((item, index) => {*/}
+                {/*            return <Text key={index} style={PublicStyles.descTwo9}>会员等级：{item.name} 立享 {item.discount}折*/}
+                {/*                价格：{current_sku ? (current_sku.origin_price * item.discount / 10).toFixed(2) : (skus[0].origin_price * item.discount / 10).toFixed(2)}元</Text>*/}
+                {/*        })}*/}
+                {/*        <Text style={PublicStyles.descTwo9}>备注：实际价格请以选中的商品属性标价为准。</Text>*/}
+                {/*    </View>*/}
+                {/*}*/}
 
                 {userInfo === null || userInfo.userLevel && userInfo.userLevel === '普通用户' || cateType === 'member' ? null :
                     <View style={[PublicStyles.rowBetweenCenter, styles.SpecListNumView]}>
@@ -258,7 +322,7 @@ export default class ChargeSpecList extends Component {
                     onClick={() => {
 
                         if (!canBuy) {
-                            return Toast.warn(`您已超过购买数量限制，请查看购买其他商品。`);
+                            return Toast.warn(`您已超过购买数量限制，请升级代理等级。`);
                         }
                         if (userInfo && userInfo.userLevel && userInfo.userLevel !== '普通用户' && theResultCanBuyNum > 0 && canBuy) {
                             if (quantity > theResultCanBuyNum) {
@@ -279,9 +343,9 @@ export default class ChargeSpecList extends Component {
     }
 
     buyNow = async () => {
-        const {current_sku, quantity, message, current_userLevel_origin_price} = this.state;
+        const {current_sku, quantity, message, current_userLevel_origin_price, oilName, oilAddress, oilPhone, gameAccount, gameServer, gameRole} = this.state;
         const {skus, dispatch, navigation, userInfo, userToken, cateType} = this.props;
-        const params = {
+        let params = {
             goods_sku_id: current_sku.id,
             quantity,
             userToken,
@@ -295,7 +359,19 @@ export default class ChargeSpecList extends Component {
                 return Toast.warn(`您的会员等级已经是${userInfo.userLevel}了。`)
             }
         }
-        if (cateType !== 'member' && !message) {
+        if (cateType === 'oil') {
+            if (!oilName || !oilAddress || !oilPhone) {
+                return Toast.warn('请输入收货信息');
+            }
+            Object.assign(params, {message: '收货人:' + oilName + '-' + '收货地址:' + oilAddress + '-' + '收货电话:' + oilPhone});
+        }
+        if (cateType === 'online-game') {
+            if (!gameAccount || !gameServer || !gameRole) {
+                return Toast.warn('请输入游戏账号信息');
+            }
+            Object.assign(params, {message: '游戏角色:' + gameAccount + '-' + '游戏区服:' + gameServer + '-' + '游戏角色:' + gameRole});
+        }
+        if (cateType !== 'member' && cateType !== 'oil' && cateType !== 'online-game' && !message) {
             return Toast.warn('请输入充值号码或账号');
         }
         // Todo 直接创建充值订单，充值商品不加入购物车。
@@ -307,7 +383,7 @@ export default class ChargeSpecList extends Component {
             await dispatch(getOrderStateNum(userToken));
             navigation.navigate("Pay", {
                 orderInfo,
-                pay_amount: orderInfo.total_amount
+                pay_amount: orderInfo.total_amount.toFixed(2)
             })
         }
     }

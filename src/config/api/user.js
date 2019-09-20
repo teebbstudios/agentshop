@@ -1,4 +1,4 @@
-import { env } from '../index';
+import {env} from '../index';
 
 const ROOT_URL = `${env.apiHost}/`;
 export const UserApi = {
@@ -72,6 +72,22 @@ export const UserApi = {
     },
     balanceChangeRecords: {
         url: `${ROOT_URL}server/user/balance/records`,
+        method: 'POST'
+    },
+    agentInfo: {
+        url: `${ROOT_URL}server/agent/info`,
+        method: 'POST'
+    },
+    agentAmount: {
+        url: `${ROOT_URL}server/agent/amount`,
+        method: 'GET'
+    },
+    agentOrderList: {
+        url: `${ROOT_URL}server/agent/order/list`,
+        method: 'POST'
+    },
+    agentTotalOrderNum: {
+        url: `${ROOT_URL}server/agent/order/total/number`,
         method: 'POST'
     }
 };

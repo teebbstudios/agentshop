@@ -37,7 +37,7 @@ export default class Pay extends Component {
     state = {
         center: "",
         wait: 7200,
-        payment_code: 'wechat'
+        payment_code: 'alipay'
     };
 
     async componentDidMount() {
@@ -83,7 +83,7 @@ export default class Pay extends Component {
         const {isWXAppInstalled, navigation} = this.props;
         const {orderInfo, pay_amount} = navigation.state.params;
         const payment_list = [
-            {type: "wechat", name: "微信支付"},
+            // {type: "wechat", name: "微信支付"},
             {type: "alipay", name: "支付宝支付"},
         ];
         return (

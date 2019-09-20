@@ -34,9 +34,16 @@ export default class GoodsList extends Component {
                         data={item}
                         index={index}
                         onPress={() => {
-                            navigation.navigate("GoodsDetail", {
-                                id: item.id
-                            });
+                            if (item.is_charge_goods){
+                                navigation.navigate('ChargeItemPage', {
+                                    id: item.id,
+                                    cateType: item.cateType
+                                })
+                            }else{
+                                navigation.navigate("GoodsDetail", {
+                                    id: item.id
+                                });
+                            }
                         }}
                     />
                 )}

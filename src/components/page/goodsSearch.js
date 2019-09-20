@@ -4,6 +4,7 @@ import {
     View,
     TextInput,
     Image,
+    Text,
     TouchableOpacity
 } from 'react-native';
 import {SearchBar} from "antd-mobile-rn";
@@ -21,12 +22,15 @@ export default class PageGoodsSearch extends Component {
             <View
                 style={[styles.inputView, {borderWidth: (background_color === '#fff' || background_color === '#ffffff') ? 0.5 : 0}]}>
                 <Image style={styles.img} source={require('../../images/search.png')}/>
-                <TextInput
-                    placeholder="搜索商品"
-                    style={styles.input}
-                    underlineColorAndroid={'transparent'}
-                    onFocus={goGoodsList}
-                />
+                {/*<TextInput*/}
+                {/*    placeholder="搜索商品"*/}
+                {/*    style={styles.input}*/}
+                {/*    underlineColorAndroid={'transparent'}*/}
+                {/*    onFocus={goGoodsList}*/}
+                {/*/>*/}
+                <View style={{padding: 6}}>
+                    <Text style={{color: '#777777'}}>搜索商品</Text>
+                </View>
             </View>
         </TouchableOpacity>
     }
@@ -47,9 +51,10 @@ const styles = StyleSheet.create({
     img: {
         marginRight: 10
     },
-    input: {
-        height: 34,
-        fontSize: 12,
-        textAlign: 'center',
-    }
+    // input: {
+    //     marginTop:5,
+    //     height: 34,
+    //     // fontSize: 12,
+    //     textAlign: 'center',
+    // }
 });

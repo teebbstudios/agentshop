@@ -45,13 +45,13 @@ export default class PaySuccess extends Component {
                     >
                         返回首页
                     </Button>
-                    <Button
-                        onClick={()=>{
-                            navigation.navigate('OrderDetail', {id})
-                        }}
-                    >
-                        查看订单
-                    </Button>
+                    {/*<Button*/}
+                    {/*    onClick={()=>{*/}
+                    {/*        navigation.navigate('OrderDetail', {id})*/}
+                    {/*    }}*/}
+                    {/*>*/}
+                    {/*    查看订单*/}
+                    {/*</Button>*/}
                 </View>
             </View>
         )

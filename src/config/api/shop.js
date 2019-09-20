@@ -9,5 +9,9 @@ export const ShopApi = {
     version : {
         url: `${ROOT_URL}shop/app/version`,
         method: 'GET'
-    }
+    },
+    services:  {
+        url: `${ROOT_URL}shop/services`,
+        method: 'GET'
+    },
 };

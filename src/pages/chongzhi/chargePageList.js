@@ -38,7 +38,13 @@ export default class ChargeListPage extends Component {
         return (
             <View style={PublicStyles.ViewMax}>
                 <Item style={{flexDirection: 'row', justifyContent: "center"}} arrow="down">
-                    {cateType === 'tencent' ? 'QQ充值列表' : cateType === 'online-game' ? '游戏充值列表' : null}
+                    {cateType === 'tencent' ? 'QQ充值列表' :
+                        cateType === 'online-game' ? '游戏充值列表' :
+                            cateType === 'oil' ? '加油卡' :
+                            cateType === 'video' ? '视频会员' :
+                            cateType === 'live' ? '直播平台' :
+                            cateType === 'gift-card' ? '礼品卡' :
+                                null}
                 </Item>
                 <View style={{backgroundColor: '#ffffff'}}>
                     <ScrollView>

@@ -48,7 +48,7 @@ export default class Category extends Component {
                 if (goodsCategory.code === 0 && shopInfo.code === 0) {
                     this.setState({
                         categoryList: goodsCategory.result.list,
-                        current: goodsCategory.result.list[0].id,
+                        // current: goodsCategory.result.list[0].id,
                         goods_category_style: shopInfo.result.info.goods_category_style+1
                     })
                 }
@@ -185,6 +185,12 @@ export default class Category extends Component {
     PageThree = () => {
         const { current, categoryList } = this.state;
         const { navigation, userToken } = this.props;
+        let params = {
+            category_ids: current ? [parseInt(current)] : null,
+        };
+        if (userToken){
+            params = Object.assign(params, {userToken});
+        }
         return <View style={PublicStyles.ViewMax}>
             <View style={styles.btnWarp}>
                 <ScrollView
@@ -233,17 +239,21 @@ export default class Category extends Component {
                         data={item}
                         index={index}
                         onPress={() => {
-                            navigation.navigate("GoodsDetail", {
-                                id: item.id
-                            });
+                            if (item.is_charge_goods){
+                                navigation.navigate('ChargeItemPage', {
+                                    id: item.id,
+                                    cateType: item.cateType
+                                })
+                            }else{
+                                navigation.navigate("GoodsDetail", {
+                                    id: item.id
+                                });
+                            }
                         }}
                     />
                 )}
                 api={GoodsApi.list}
-                fetchParams={{
-                    category_ids: current ? [parseInt(current)] : null,
-                    userToken
-                }}
+                fetchParams={params}
             />
         </View>;
     }

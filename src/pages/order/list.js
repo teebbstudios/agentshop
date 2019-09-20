@@ -14,6 +14,7 @@ import {OrderApi} from "../../config/api/order";
 import {DefaultTabBar} from "react-native-scrollable-tab-view";
 import ScrollableTabView from "react-native-scrollable-tab-view";
 import {connect} from "react-redux";
+import {getCartTotalNum, getOrderStateNum} from "../../actions/user";
 
 const orderModel = new OrderModel()
 
@@ -51,7 +52,7 @@ export default class OrderList extends Component {
     }
 
     async onCancel(orderInfo) {
-        const {userToken} = this.props;
+        const {userToken, dispatch} = this.props;
         Modal.alert('您确认取消吗？状态修改后不能变更', null, [
             {text: '取消', onPress: () => console.log('cancel'), style: 'cancel'},
             {
@@ -61,7 +62,8 @@ export default class OrderList extends Component {
                         userToken
                     });
                     if (result === true) {
-                        this.updateListRow(orderInfo.id)
+                        this.updateListRow(orderInfo.id);
+                        await dispatch(getOrderStateNum(userToken));
                     } else {
                         fa.toast.show({
                             title: fa.code.parse(orderModel.getException().getCode())

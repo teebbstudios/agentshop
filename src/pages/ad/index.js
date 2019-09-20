@@ -33,7 +33,7 @@ export default class Ad extends Component {
             <View style={styles.container}>
                 <ImageBackground
                     style={styles.launchImage}
-                    source={require('../../images/ad.png')}
+                    source={require('../../images/ad.jpg')}
                 >
                     <SafeAreaView>
                         <TouchableOpacity 

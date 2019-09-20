@@ -109,7 +109,7 @@ export class Toast {
         Toast.DropdownAlert("info", "提示", e);
     }
     static warn(e) {
-        Toast.DropdownAlert("warn", "警告", e);
+        Toast.DropdownAlert("warn", "提醒", e);
     }
     static success(e) {
         Toast.DropdownAlert("success", "成功", e);

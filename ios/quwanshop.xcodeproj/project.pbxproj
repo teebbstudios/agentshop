@@ -73,6 +73,8 @@
 		BBAD586F5DBC42F6872EA34A /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6178135C77B84DA58F5F3F07 /* AntDesign.ttf */; };
 		CCD449A8A2EA4ED08C9F2138 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E4B7FCFF0474B4A82C02BA4 /* EvilIcons.ttf */; };
 		DCC372E0B1EC482F9F24BF7A /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09F263D1AA814515811BBE24 /* FontAwesome5_Regular.ttf */; };
+		ED8BC1ED2334F6630038D4CD /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = ED8BC1EB2334F6630038D4CD /* main.jsbundle */; };
+		ED8BC1EE2334F6630038D4CD /* assets in Resources */ = {isa = PBXBuildFile; fileRef = ED8BC1EC2334F6630038D4CD /* assets */; };
 		F465362AF0B84602A5BD0ADD /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1BE9AA00E58C45ACBEF7E700 /* Feather.ttf */; };
 /* End PBXBuildFile section */
 
@@ -493,7 +495,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
 		00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTGeolocation.xcodeproj; path = "../node_modules/react-native/Libraries/Geolocation/RCTGeolocation.xcodeproj"; sourceTree = "<group>"; };
 		00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImage.xcodeproj; path = "../node_modules/react-native/Libraries/Image/RCTImage.xcodeproj"; sourceTree = "<group>"; };
@@ -560,6 +561,8 @@
 		E3ECB712222A4E38A9E8F7DA /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		E7C2BE602B5D402290EC0C0C /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		E99515E385E34A66A069925B /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		ED8BC1EB2334F6630038D4CD /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../release_ios/main.jsbundle; sourceTree = "<group>"; };
+		ED8BC1EC2334F6630038D4CD /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../release_ios/assets; sourceTree = "<group>"; };
 		F3E5A36317014669BC56B692 /* RNSyanImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSyanImagePicker.xcodeproj; path = "../node_modules/react-native-syan-image-picker/ios/RNSyanImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		F45739E72A50447A8A20F486 /* AlipayModule.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AlipayModule.xcodeproj; path = "../node_modules/react-native-yunpeng-alipay/ios/AlipayModule.xcodeproj"; sourceTree = "<group>"; };
 		F9B232C2E73C43DE8C33DEBE /* RCTWeChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = RCTWeChatTests.xctest; sourceTree = "<group>"; };
@@ -580,9 +583,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04AEBA26219528870057C2DF /* CoreTelephony.framework in Frameworks */,
+				04AF1FD421D6087C005A19E2 /* CoreMotion.framework in Frameworks */,
 				045D5F9921C9DF60007912A2 /* libLottie.a in Frameworks */,
 				0434255421F6A52000C9FFFE /* libRCTMJRefreshHeader.a in Frameworks */,
-				04AF1FD421D6087C005A19E2 /* CoreMotion.framework in Frameworks */,
 				04AF1FD221D6070A005A19E2 /* libAlipayModule.a in Frameworks */,
 				045D5F9B21C9DF75007912A2 /* libSplashScreen.a in Frameworks */,
 				047E35A621FED1040053D5C3 /* libLottieReactNative.a in Frameworks */,
@@ -594,7 +598,6 @@
 				04AEBA2C219528B10057C2DF /* libz.tbd in Frameworks */,
 				04AEBA2A219528A50057C2DF /* libc++.tbd in Frameworks */,
 				04AEBA28219528950057C2DF /* libsqlite3.0.tbd in Frameworks */,
-				04AEBA26219528870057C2DF /* CoreTelephony.framework in Frameworks */,
 				04AEBA242195287D0057C2DF /* SystemConfiguration.framework in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */,
@@ -821,8 +824,9 @@
 		13B07FAE1A68108700A75B9A /* quwanshop */ = {
 			isa = PBXGroup;
 			children = (
+				ED8BC1EC2334F6630038D4CD /* assets */,
+				ED8BC1EB2334F6630038D4CD /* main.jsbundle */,
 				045D603121C9EEF0007912A2 /* quwanshop.entitlements */,
-				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -1084,11 +1088,11 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 8FH5R2GNEK;
+						DevelopmentTeam = P66S8M7QL2;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -1607,10 +1611,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED8BC1ED2334F6630038D4CD /* main.jsbundle in Resources */,
 				04558160219BB656005B54DC /* TZImagePickerController.bundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				BBAD586F5DBC42F6872EA34A /* AntDesign.ttf in Resources */,
+				ED8BC1EE2334F6630038D4CD /* assets in Resources */,
 				076AF7368EAC43D681BB1C48 /* Entypo.ttf in Resources */,
 				CCD449A8A2EA4ED08C9F2138 /* EvilIcons.ttf in Resources */,
 				F465362AF0B84602A5BD0ADD /* Feather.ttf in Resources */,
@@ -1846,11 +1852,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = quwanshop/quwanshop.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 8FH5R2GNEK;
+				DEVELOPMENT_TEAM = P66S8M7QL2;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
@@ -1873,7 +1878,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.quwanshop;
 				PRODUCT_NAME = quwanshop;
-				PROVISIONING_PROFILE_SPECIFIER = "2018/12/18 quwanshop 开发环境描述文件";
+				PROVISIONING_PROFILE_SPECIFIER = quwanshop;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1884,11 +1889,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = quwanshop/quwanshop.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8FH5R2GNEK;
+				DEVELOPMENT_TEAM = P66S8M7QL2;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
@@ -1911,7 +1915,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.quwanshop;
 				PRODUCT_NAME = quwanshop;
-				PROVISIONING_PROFILE_SPECIFIER = "2018/12/18 quwanshop 生产环境描述文件";
+				PROVISIONING_PROFILE_SPECIFIER = quwanshop;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -2215,7 +2219,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chengcheng Bao (J6F38WW2WR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chengcheng Bao (J6F38WW2WR)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;

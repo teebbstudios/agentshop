@@ -68,6 +68,10 @@ export default (state = initialState, action)=> {
                 myDemandHallDetail:action.myDemandDetailData,
                 myDemandDetailFetchstatus:action.myDemandDetailStatus,
             });
+        case types.user.GET_USER_AGENT_INFO:
+            return Object.assign({}, state, {
+                agentInfo: action.agentInfo
+            });
         default:
             return state;
     }

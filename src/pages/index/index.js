@@ -8,6 +8,7 @@ import Home from '../home';
 import Category from "../category";
 import Cart from "../cart";
 import User from '../user';
+import Agent from "../Agent";
 
 class TabBarItem extends Component {
     render() {
@@ -86,6 +87,20 @@ export default createBottomTabNavigator(
                         focused={focused}
                         normalImage={require("../../images/tab/tab3.png")}
                         selectedImage={require("../../images/tab/tabActive3.png")}
+                    />
+                ),
+            })
+        },
+        Agent: {
+            screen: Agent,
+            navigationOptions: ({ navigation }) => ({
+                tabBarLabel: "代理",
+                tabBarIcon: ({ focused, tintColor }) => (
+                    <TabBarItem
+                        tintColor={tintColor}
+                        focused={focused}
+                        normalImage={require("../../images/agent/agent.png")}
+                        selectedImage={require("../../images/agent/agentActive.png")}
                     />
                 ),
             })

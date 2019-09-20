@@ -335,11 +335,35 @@ export const getCartTotalNum = (user_token) => {
             })
     }
 };
+
 export const changeCartTotalNum = (cartNum) => {
     return dispatch => {
         dispatch({
             type: types.user.GET_CART_TOTAL_NUM,
             cartNum
         })
+    }
+};
+
+
+// 获取用户代理信息
+export const getAgentInfo = (user_token) => {
+    return dispatch => {
+        Fetch.fetch({
+            api: UserApi.agentInfo,
+            params: {
+                userToken: user_token
+            }
+        })
+            .then((e) => {
+                if (e.code === 0) {
+                    dispatch({
+                        type: types.user.GET_USER_AGENT_INFO,
+                        agentInfo: e.result.info
+                    })
+                }else{
+                    Toast.warn('获取代理信息失败，请重新登录后再试。')
+                }
+            })
     }
 };
