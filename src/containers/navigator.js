@@ -60,6 +60,7 @@ import Agent from "../pages/Agent";
 import AgentInfo from "../pages/Agent/agentInfo";
 import AgentOrderList from "../pages/Agent/agentOrderList";
 import ContactService from "../pages/user/ContactService";
+import YinsiPage from "../pages/user/yinsi";
 
 const modalStyleStackNames = [
     'UserLogin',
@@ -370,6 +371,12 @@ const AppStack = createStackNavigator(
             screen: ContactService,
             navigationOptions: {
                 title: '联系客服'
+            }
+        },
+        YiSiPage: {
+            screen: YinsiPage,
+            navigationOptions: {
+                title: '用户协议及隐私声明'
             }
         }
     },

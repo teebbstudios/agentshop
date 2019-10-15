@@ -13,7 +13,7 @@ import { PublicStyles } from '../../utils/style';
 export default class GoodsStepper extends Component{
     state = {
         value: this.props.defaultValue ? this.props.defaultValue : 1,
-    }
+    };
     clickSub = () => {
         const { value } = this.state;
         const { onSubClick, onChange } = this.props;

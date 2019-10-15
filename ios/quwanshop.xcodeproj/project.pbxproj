@@ -73,8 +73,8 @@
 		BBAD586F5DBC42F6872EA34A /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6178135C77B84DA58F5F3F07 /* AntDesign.ttf */; };
 		CCD449A8A2EA4ED08C9F2138 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E4B7FCFF0474B4A82C02BA4 /* EvilIcons.ttf */; };
 		DCC372E0B1EC482F9F24BF7A /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09F263D1AA814515811BBE24 /* FontAwesome5_Regular.ttf */; };
-		ED8BC1ED2334F6630038D4CD /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = ED8BC1EB2334F6630038D4CD /* main.jsbundle */; };
-		ED8BC1EE2334F6630038D4CD /* assets in Resources */ = {isa = PBXBuildFile; fileRef = ED8BC1EC2334F6630038D4CD /* assets */; };
+		EDE20F8F233DC1B0004E3013 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = EDE20F8D233DC1B0004E3013 /* main.jsbundle */; };
+		EDE20F90233DC1B0004E3013 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = EDE20F8E233DC1B0004E3013 /* assets */; };
 		F465362AF0B84602A5BD0ADD /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1BE9AA00E58C45ACBEF7E700 /* Feather.ttf */; };
 /* End PBXBuildFile section */
 
@@ -561,8 +561,8 @@
 		E3ECB712222A4E38A9E8F7DA /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		E7C2BE602B5D402290EC0C0C /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		E99515E385E34A66A069925B /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		ED8BC1EB2334F6630038D4CD /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../release_ios/main.jsbundle; sourceTree = "<group>"; };
-		ED8BC1EC2334F6630038D4CD /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../release_ios/assets; sourceTree = "<group>"; };
+		EDE20F8D233DC1B0004E3013 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../release_ios/main.jsbundle; sourceTree = "<group>"; };
+		EDE20F8E233DC1B0004E3013 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../release_ios/assets; sourceTree = "<group>"; };
 		F3E5A36317014669BC56B692 /* RNSyanImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSyanImagePicker.xcodeproj; path = "../node_modules/react-native-syan-image-picker/ios/RNSyanImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		F45739E72A50447A8A20F486 /* AlipayModule.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AlipayModule.xcodeproj; path = "../node_modules/react-native-yunpeng-alipay/ios/AlipayModule.xcodeproj"; sourceTree = "<group>"; };
 		F9B232C2E73C43DE8C33DEBE /* RCTWeChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = RCTWeChatTests.xctest; sourceTree = "<group>"; };
@@ -824,8 +824,8 @@
 		13B07FAE1A68108700A75B9A /* quwanshop */ = {
 			isa = PBXGroup;
 			children = (
-				ED8BC1EC2334F6630038D4CD /* assets */,
-				ED8BC1EB2334F6630038D4CD /* main.jsbundle */,
+				EDE20F8E233DC1B0004E3013 /* assets */,
+				EDE20F8D233DC1B0004E3013 /* main.jsbundle */,
 				045D603121C9EEF0007912A2 /* quwanshop.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -1611,12 +1611,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED8BC1ED2334F6630038D4CD /* main.jsbundle in Resources */,
+				EDE20F8F233DC1B0004E3013 /* main.jsbundle in Resources */,
 				04558160219BB656005B54DC /* TZImagePickerController.bundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				BBAD586F5DBC42F6872EA34A /* AntDesign.ttf in Resources */,
-				ED8BC1EE2334F6630038D4CD /* assets in Resources */,
+				EDE20F90233DC1B0004E3013 /* assets in Resources */,
 				076AF7368EAC43D681BB1C48 /* Entypo.ttf in Resources */,
 				CCD449A8A2EA4ED08C9F2138 /* EvilIcons.ttf in Resources */,
 				F465362AF0B84602A5BD0ADD /* Feather.ttf in Resources */,

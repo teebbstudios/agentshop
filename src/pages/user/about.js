@@ -33,7 +33,7 @@ const Item = List.Item;
     ))
 export default class About extends BaseComponent {
     render() {
-        const {versionUpdateState, versionUpdateData, showVersionUpdate} = this.props;
+        const {versionUpdateState, versionUpdateData, showVersionUpdate, navigation} = this.props;
         return <ScrollView style={PublicStyles.ViewMax}>
             <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 40}}>
                 <Image style={styles.logoImg}
@@ -58,6 +58,16 @@ export default class About extends BaseComponent {
                             >
                                 有新版本
                             </Badge> : null}
+                    </View>
+                </Item>
+                <Item
+                    key='yinsixieyi'
+                    onClick={() => {
+                        navigation.navigate('YiSiPage')
+                    }}
+                >
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Text style={PublicStyles.title}>用户协议及隐私声明</Text>
                     </View>
                 </Item>
             </View>

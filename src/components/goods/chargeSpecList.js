@@ -304,7 +304,8 @@ export default class ChargeSpecList extends Component {
                     <View style={[PublicStyles.rowBetweenCenter, styles.SpecListNumView]}>
                         <Text
                             style={PublicStyles.descTwo9}>
-                            购买说明：您已买到此商品{buyedNum}件，共花费{buyedMoney}元。您还可购买{theResultCanBuyNum}件。
+                            购买说明：您已买到此商品{buyedNum}件，共花费{buyedMoney}元。您的可购买金额{canBuyMoney}元，还可购买{theResultCanBuyNum}件。
+                        {/*   */}
                         </Text>
                     </View>}
 
@@ -320,13 +321,16 @@ export default class ChargeSpecList extends Component {
                         margin: 15
                     }}
                     onClick={() => {
-
+                        Toast.warn(`${quantity}`);
                         if (!canBuy) {
                             return Toast.warn(`您已超过购买数量限制，请升级代理等级。`);
                         }
                         if (userInfo && userInfo.userLevel && userInfo.userLevel !== '普通用户' && theResultCanBuyNum > 0 && canBuy) {
                             if (quantity > theResultCanBuyNum) {
-                                return Toast.warn(`您最多只能购买${theResultCanBuyNum}件。`);
+                                return Toast.warn(`您最多只能购买${theResultCanBuyNum}件,如需购买更多请升级代理等级。`);
+                            }
+                            if (current_sku.price * quantity > canBuyMoney){
+                                return Toast.warn(`您最多只能购买${canBuyMoney}元,如需购买更多请升级代理等级。`);
                             }
                         }
                         if (login) {
@@ -343,8 +347,8 @@ export default class ChargeSpecList extends Component {
     }
 
     buyNow = async () => {
-        const {current_sku, quantity, message, current_userLevel_origin_price, oilName, oilAddress, oilPhone, gameAccount, gameServer, gameRole} = this.state;
-        const {skus, dispatch, navigation, userInfo, userToken, cateType} = this.props;
+        const {current_sku, quantity, message,theResultCanBuyNum, current_userLevel_origin_price, oilName, oilAddress, oilPhone, gameAccount, gameServer, gameRole} = this.state;
+        const {skus, dispatch, navigation, userInfo, userToken, cateType, canBuyMoney} = this.props;
         let params = {
             goods_sku_id: current_sku.id,
             quantity,
@@ -359,6 +363,12 @@ export default class ChargeSpecList extends Component {
                 return Toast.warn(`您的会员等级已经是${userInfo.userLevel}了。`)
             }
         }
+        // console.log(theResultCanBuyNum , current_sku.price * quantity , canBuyMoney);
+        // //如果可购买数量等于0不让购买，如果购买的金额*选择的数量大于可购买金额也不让买
+        // if (theResultCanBuyNum <= 0 || current_sku.price * quantity > canBuyMoney){
+        //     return Toast.warn('您已超过可购买商品限制，请升级代理等级。');
+        // }
+
         if (cateType === 'oil') {
             if (!oilName || !oilAddress || !oilPhone) {
                 return Toast.warn('请输入收货信息');

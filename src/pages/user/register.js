@@ -173,11 +173,19 @@ export default class UserRegister extends Component {
                                 />
                             </TouchableOpacity>
                         </View>
+                        <View style={styles.View5}>
+                            <Text
+                                style={styles.text5}
+                                onPress={() => navigation.navigate('YiSiPage')}
+                            >
+                                用户协议及隐私声明
+                            </Text>
+                        </View>
                         <Button
                             onClick={this.submit}
                             type='primary'
                         >
-                            注 册
+                            同意用户协议及隐私声明并注册
                         </Button>
                     </View>
                 </KeyboardAwareScrollView>
