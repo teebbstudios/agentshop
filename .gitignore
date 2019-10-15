@@ -53,6 +53,7 @@ buck-out/
 */fastlane/screenshots
 
 # else
-quwanshop_ios/
+androidkeystore/
 release_ios/
+quwanshop_ios/
 
