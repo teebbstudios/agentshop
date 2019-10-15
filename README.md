@@ -13,8 +13,8 @@ react-native run-android
 APP端开源，服务端收费部署与APP对接。
 如有需要联系QQ或微信：443580003 
 
-APP截图：
-![APP首页](./readme_assets/000.jpg)
-![用户页面](./readme_assets/001.jpg)
-![代理页面](./readme_assets/002.png)
+##APP截图：
+![APP首页](./readme_assets/000.jpg | width=200)
+![用户页面](./readme_assets/001.jpg | width=200)
+![代理页面](./readme_assets/002.png | width=200)
 
