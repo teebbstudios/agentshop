@@ -243,7 +243,7 @@ export default class User extends BaseComponent {
         {
             botList.push({
                 img: require('../../images/user/about.png'),
-                title: '关于趣玩商城',
+                title: '关于商城',
                 path: "About"
             })
         }
@@ -261,7 +261,7 @@ export default class User extends BaseComponent {
                                     <Image style={styles.botImg} source={item.img}/>
                                     <Text style={PublicStyles.title}>{item.title}</Text>
                                     {
-                                        item.title === '关于趣玩商城' && showVersionUpdate ?  <Badge
+                                        item.title === '关于商城' && showVersionUpdate ?  <Badge
                                             textStyle={{color: '#fff', fontSize: 10, paddingHorizontal: 2}}
                                         >
                                             有新版本
@@ -271,16 +271,6 @@ export default class User extends BaseComponent {
                             </Item>
                         ))
                     }
-                    <Item
-                        key='agentPrice'
-                        arrow="horizontal"
-                        onClick={() => Linking.openURL(env.apiHost + '/content/4/detail')}
-                    >
-                        <View style={PublicStyles.rowCenter}>
-                            <Image style={styles.botImg} source={require('../../images/tab/tab3.png')}/>
-                            <Text style={PublicStyles.title}>会员代理特价</Text>
-                        </View>
-                    </Item>
                 </List>
 
             </ScrollView>

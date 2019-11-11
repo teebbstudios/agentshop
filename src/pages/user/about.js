@@ -37,9 +37,9 @@ export default class About extends BaseComponent {
         return <ScrollView style={PublicStyles.ViewMax}>
             <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 40}}>
                 <Image style={styles.logoImg}
-                       source={require('../../images/logo308.png')}
+                       source={require('../../images/shop.png')}
                 />
-                <Text style={{color: 'red', marginTop: 15}}>趣玩商城</Text>
+                <Text style={{color: 'red', marginTop: 15}}>易巧分销APP商城</Text>
             </View>
             <View style={{marginTop: 10, flexDirection: 'column'}}>
                 <Item

@@ -45,40 +45,6 @@ export default class PageGoodsList extends Component {
                     }
                 })
             }
-            <TouchableOpacity
-                key='online-game'
-                style={styles.listWarp}
-                onPress={() => navigation.navigate("ChargePageList", {cateType: 'online-game'}) }
-            >
-                <NetworkImage style={styles.indexImg} imageStyle={{borderRadius: 4}}
-                       source={{uri: `${env.apiHost}/app/online-game.jpg`}}/>
-                <View style={styles.listRight}>
-                    <Text style={styles.listTitle} numberOfLines={3}>游戏充值</Text>
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-                key='tencent'
-                style={styles.listWarp}
-                onPress={() => navigation.navigate("ChargePageList", {cateType: 'tencent'}) }
-            >
-                <NetworkImage style={styles.indexImg} imageStyle={{borderRadius: 4}}
-                       source={{uri: `${env.apiHost}/app/qqchongzhi.jpg`}}/>
-                <View style={styles.listRight}>
-                    <Text style={styles.listTitle} numberOfLines={3}>QQ充值</Text>
-                </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-                key='oil'
-                style={styles.listWarp}
-                onPress={() => navigation.navigate("ChargePageList", {cateType: 'oil'}) }
-            >
-                <NetworkImage style={styles.indexImg} imageStyle={{borderRadius: 4}}
-                       source={{uri: `${env.apiHost}/app/164aa58d75b233fdd36f5632439a7682.jpg`}}/>
-                <View style={styles.listRight}>
-                    <Text style={styles.listTitle} numberOfLines={3}>加油卡</Text>
-                </View>
-            </TouchableOpacity>
         </View>
     }
 

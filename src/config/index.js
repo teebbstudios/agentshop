@@ -8,7 +8,7 @@ const AppEnv = __DEV__ ? 'debug' : 'release'; // 项目环境
 
 // 开发环境基础配置
 const developmentConfig =  {
-    apiHost : 'https://m.quwanshop.cn', // api地址
+    apiHost : 'http://www.agentshop.cc', // api地址
     log : true, // 是否开启输出日志
     showLog : true, // 是否显示输出日志
     showNetWorkErrorInfo : true, // 是否显示接口错误信息
@@ -19,7 +19,7 @@ const developmentConfig =  {
 
 // 生产环境基础配置
 const productionConfig =  {
-    apiHost : 'https://m.quwanshop.cn', // api域名
+    apiHost : 'http://www.agentshop.cc', // api域名
     log : false, // 是否开启输出日志
     showLog : false, // 是否显示输出日志
     showNetWorkErrorInfo : false, // 是否显示接口错误信息

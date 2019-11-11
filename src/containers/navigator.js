@@ -352,7 +352,7 @@ const AppStack = createStackNavigator(
         About: {
             screen: About,
             navigationOptions: {
-                title: '关于趣玩商城'
+                title: '关于易巧分销APP商城'
             }
         },
         AgentInfo: {

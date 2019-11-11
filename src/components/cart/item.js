@@ -73,19 +73,19 @@ export default class CartItem extends Component {
                     <Text style={styles.cartCardSpec}>库存：{stock}</Text>
                     <View style={styles.cartCardFooter}>
                         <Text style={styles.cartCardPrice}>¥ {price}</Text>
-                        <Text style={styles.cartCardPrice}>购买数量 {number}</Text>
-                        {/*<View style={styles.cartCardStepper}>*/}
-                        {/*    <Stepper*/}
-                        {/*        size="small"*/}
-                        {/*        key="1"*/}
-                        {/*        max={99}*/}
-                        {/*        min={1}*/}
-                        {/*        readOnly={false}*/}
-                        {/*        defaultValue={1}*/}
-                        {/*        value={number}*/}
-                        {/*        onChange={this.onStepperChange}*/}
-                        {/*    />*/}
-                        {/*</View>*/}
+                        {/*<Text style={styles.cartCardPrice}>购买数量 {number}</Text>*/}
+                        <View style={styles.cartCardStepper}>
+                            <Stepper
+                                size="small"
+                                key="1"
+                                max={99}
+                                min={1}
+                                readOnly={false}
+                                defaultValue={1}
+                                value={number}
+                                onChange={this.onStepperChange}
+                            />
+                        </View>
                     </View>
                 </View>
             </View>

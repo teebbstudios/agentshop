@@ -263,7 +263,7 @@ export default class Agent extends BaseComponent {
             }
         ];
         {
-            userInfo && userInfo.userLevel === '钻石代理' ? botList.push({
+            userInfo ? botList.push({
                 img: require('../../images/user/discount.png'),
                 title: '自定义显示折扣',
                 path: "CustomDiscount"
