@@ -271,19 +271,19 @@ export default class Agent extends BaseComponent {
         }
         return (
             <ScrollView style={PublicStyles.ViewMax}>
-                {login && userInfo && userInfo.userLevel !== '普通用户' ?
-                    <View>
-                        <Item
-                            key='updateUser'
-                            arrow="horizontal"
-                            onClick={() => navigation.navigate("ChargeItemPage", {id: 15, cateType: 'member'})}
-                        >
-                            <View style={PublicStyles.rowCenter}>
-                                <Image style={styles.botImg} source={require('../../images/tab/tab4.png')}/>
-                                <Text style={PublicStyles.title}>升级账户</Text>
-                            </View>
-                        </Item>
-                    </View> : null}
+                {/*{login && userInfo && userInfo.userLevel !== '普通用户' ?*/}
+                {/*    <View>*/}
+                {/*        <Item*/}
+                {/*            key='updateUser'*/}
+                {/*            arrow="horizontal"*/}
+                {/*            onClick={() => navigation.navigate("ChargeItemPage", {id: 15, cateType: 'member'})}*/}
+                {/*        >*/}
+                {/*            <View style={PublicStyles.rowCenter}>*/}
+                {/*                <Image style={styles.botImg} source={require('../../images/tab/tab4.png')}/>*/}
+                {/*                <Text style={PublicStyles.title}>升级账户</Text>*/}
+                {/*            </View>*/}
+                {/*        </Item>*/}
+                {/*    </View> : null}*/}
                 {login && userInfo && userInfo.userLevel !== '普通用户' ?
                     <List style={PublicStyles.ViewMax}>
                         {
