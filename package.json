@@ -18,7 +18,7 @@
     "moment": "^2.22.2",
     "prop-types": "^15.6.2",
     "react": "16.6.0-alpha.8af6728",
-    "react-native": "^0.57.5",
+    "react-native": "^0.71.3",
     "react-native-dropdownalert": "^3.7.1",
     "react-native-image-gallery": "^2.1.5",
     "react-native-image-picker": "^0.27.1",
